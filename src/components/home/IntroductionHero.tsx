@@ -14,15 +14,15 @@ interface SiteSettings {
 // Default fallback values using translations
 async function getDefaultHeroData(t: Awaited<ReturnType<typeof getTranslations<'hero'>>>) {
     return {
-        heroTitle: t('title'),
-        heroSubtitle: t('subtitle'),
-        heroChips: [
+        title: t('title'),
+        subtitle: t('subtitle'),
+        chips: [
             { emoji: '📝', text: t('chip1').replace('📝 ', '') },
             { emoji: '💭', text: t('chip2').replace('💭 ', '') },
             { emoji: '💜', text: t('chip3').replace('💜 ', '') }
         ],
-        heroPrimaryButton: { text: t('readMore'), scrollTarget: 'featured-posts' },
-        heroSecondaryButton: { text: t('explore'), scrollTarget: 'categories' }
+        primaryButton: { text: t('readMore'), scrollTarget: 'featured-posts' },
+        secondaryButton: { text: t('explore'), scrollTarget: 'categories' }
     };
 }
 
