@@ -24,9 +24,9 @@
   --color-pastel-red: #ffebee;
   --color-pastel-red-border: #ef9a9a;
 
-  --font-rounded: var(--font-quicksand), sans-serif;
-  --font-handwritten: var(--font-patrick-hand), cursive;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-rounded: var(--font-fredoka), sans-serif;
+  --font-handwritten: var(--font-bubblegum), cursive;
+  --font-sans: var(--font-nunito), sans-serif;
 
   --radius-4xl: 2rem;
   --radius-5xl: 2.5rem;
@@ -36,6 +36,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-sans bg-[#fff5f8];
   }

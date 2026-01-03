@@ -2,6 +2,7 @@
 import { Star } from 'lucide-react';
 
 interface AboutFavoritesProps {
+    title?: string;
     favorites: {
         category: string;
         items: string[];
@@ -9,7 +10,7 @@ interface AboutFavoritesProps {
     }[];
 }
 
-export function AboutFavorites({ favorites }: AboutFavoritesProps) {
+export function AboutFavorites({ title = "Things I Love", favorites }: AboutFavoritesProps) {
     return (
         <section className="py-16 px-4">
             <div className="max-w-6xl mx-auto">
@@ -17,7 +18,7 @@ export function AboutFavorites({ favorites }: AboutFavoritesProps) {
                     <span className="inline-block p-3 bg-pastel-mint/50 rounded-full mb-4">
                         <Star className="w-6 h-6 text-green-500 fill-green-500/50" />
                     </span>
-                    <h2 className="text-4xl font-handwritten text-gray-800">Things I Love</h2>
+                    <h2 className="text-4xl font-handwritten text-gray-800">{title}</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

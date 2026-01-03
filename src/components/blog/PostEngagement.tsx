@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { Heart, Share2, Sparkles } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function PostEngagement({ initialLikes = 0 }: { initialLikes?: number }) {
     const [likes, setLikes] = useState(initialLikes);
     const [isLiked, setIsLiked] = useState(false);
+    const t = useTranslations('engagement');
 
     const handleLike = () => {
         if (isLiked) {
@@ -23,10 +25,10 @@ export function PostEngagement({ initialLikes = 0 }: { initialLikes?: number }) 
 
             <div className="text-center space-y-2">
                 <h3 className="font-rounded text-2xl text-gray-700 font-bold flex items-center gap-2 justify-center">
-                    Gimana pendapat kamu? <Sparkles size={20} className="text-yellow-400" />
+                    {t('question')} <Sparkles size={20} className="text-yellow-400" />
                 </h3>
                 <p className="font-sans text-gray-500 text-sm">
-                    Kasih love kalau kamu suka tulisan ini ya!
+                    {t('likePrompt')}
                 </p>
             </div>
 
@@ -46,7 +48,7 @@ export function PostEngagement({ initialLikes = 0 }: { initialLikes?: number }) 
 
                 <button className="flex items-center gap-3 px-8 py-3 rounded-full font-bold bg-white text-gray-600 hover:bg-pastel-blue/10 hover:text-pastel-blue-border transition-all duration-300 transform hover:scale-105 shadow-sm">
                     <Share2 size={20} />
-                    <span>Share</span>
+                    <span>{t('share')}</span>
                 </button>
             </div>
         </div>

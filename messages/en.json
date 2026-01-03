@@ -1,0 +1,103 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About Me",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title": "Welcome to\nAlma's Story Space",
+        "subtitle": "Where stories grow, hearts connect, and we learn together ✨",
+        "chip1": "📝 Personal Stories",
+        "chip2": "💭 Q&A Sessions",
+        "chip3": "💜 Connect",
+        "readMore": "Start Reading",
+        "explore": "Explore Categories"
+    },
+    "categories": {
+        "personal-story": "Personal Story",
+        "lifestyle": "Lifestyle",
+        "beauty-care": "Beauty & Care",
+        "creative": "Creative",
+        "psychology": "Psychology",
+        "qna": "Q&A"
+    },
+    "recent": {
+        "title": "Latest Stories"
+    },
+    "highlight": {
+        "title": "Most Loved",
+        "comment": "Comment"
+    },
+    "footer": {
+        "tagline": "My personal space to share stories, experiences, and random thoughts. Welcome to my little corner of the internet! 💜",
+        "quickLinks": "Quick Links",
+        "linkHome": "Home",
+        "linkCategories": "Categories",
+        "linkAbout": "About Me",
+        "connect": "Let's Connect!",
+        "dmOpen": "DM always open for a chat! ✨",
+        "copyright": "My Diary. Made with",
+        "copyrightEnd": "and lots of coffee."
+    },
+    "header": {
+        "siteName": "Alma's Story Space"
+    },
+    "blog": {
+        "backToHome": "Back to Home",
+        "readingTime": "min read",
+        "sharePost": "Share this post",
+        "relatedPosts": "Read More",
+        "thanksMessage": "Thanks for stopping by and reading this far! See you in the next post!"
+    },
+    "engagement": {
+        "question": "What do you think?",
+        "likePrompt": "Give it a love if you enjoyed this post!",
+        "share": "Share"
+    },
+    "comments": {
+        "title": "Comments",
+        "namePlaceholder": "Your name (optional)",
+        "commentPlaceholder": "Write a comment... Share your thoughts! ✨",
+        "submit": "Send",
+        "reply": "Reply"
+    },
+    "about": {
+        "title": "About Me",
+        "description": "Get to know Alma and her little world."
+    },
+    "qna": {
+        "sectionLabel": "Curiosity Corner",
+        "title": "Ask Me Anything",
+        "viewAll": "View All Questions"
+    },
+    "postHeader": {
+        "home": "Home",
+        "minRead": "min read",
+        "mood": "Mood:",
+        "nowPlaying": "Now Playing"
+    },
+    "category": {
+        "backToHome": "Back to Home",
+        "noPostsFound": "No posts found in this category yet! 🍂",
+        "personal-story": {
+            "name": "Personal Story",
+            "description": "My personal stories and life experiences. 📖"
+        },
+        "lifestyle": {
+            "name": "Lifestyle",
+            "description": "Creating a life I love, one day at a time. ✨"
+        },
+        "beauty-care": {
+            "name": "Beauty & Care",
+            "description": "Glow up with my favorite products and routines. 💄"
+        },
+        "creative": {
+            "name": "Creative",
+            "description": "Things that spark joy and creativity. 🎨"
+        },
+        "psychology": {
+            "name": "Psychology",
+            "description": "Thoughts about the mind, emotions, and human behavior. 🧠"
+        }
+    }
+}

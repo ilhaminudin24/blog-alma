@@ -2,7 +2,9 @@
 import { MessageCircle } from 'lucide-react';
 
 interface AboutContentProps {
+    storyTitle?: string;
     story: string[];
+    funFactsTitle?: string;
     funFacts: {
         icon: string;
         label: string;
@@ -10,7 +12,7 @@ interface AboutContentProps {
     }[];
 }
 
-export function AboutContent({ story, funFacts }: AboutContentProps) {
+export function AboutContent({ storyTitle = "My Little Story", story, funFactsTitle = "Fun Facts", funFacts }: AboutContentProps) {
     return (
         <section className="py-12 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
 
@@ -20,7 +22,7 @@ export function AboutContent({ story, funFacts }: AboutContentProps) {
                     <div className="p-2 bg-pastel-peach/30 rounded-lg">
                         <MessageCircle className="w-6 h-6 text-orange-400" />
                     </div>
-                    <h2 className="text-3xl font-handwritten text-gray-800">My Little Story</h2>
+                    <h2 className="text-3xl font-handwritten text-gray-800">{storyTitle}</h2>
                 </div>
 
                 <div className="prose prose-lg text-gray-600 font-rounded space-y-6 leading-relaxed">
@@ -34,7 +36,7 @@ export function AboutContent({ story, funFacts }: AboutContentProps) {
 
             {/* Fun Facts Sidebar */}
             <div className="space-y-6">
-                <h2 className="text-2xl font-handwritten text-gray-800 mb-6 text-center md:text-left">Fun Facts</h2>
+                <h2 className="text-2xl font-handwritten text-gray-800 mb-6 text-center md:text-left">{funFactsTitle}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
                     {funFacts.map((fact, index) => (
                         <div key={index} className="group p-4 bg-white/50 hover:bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1">

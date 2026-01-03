@@ -23,6 +23,10 @@ const config: Config = {
                     DEFAULT: "#E6E6FA", // Lilac as primary
                     foreground: "#4A5568",
                 },
+                brand: {
+                    pink: "#ff85a2",
+                    "pink-hover": "#f76d8e",
+                },
             },
             fontFamily: {
                 rounded: ['var(--font-quicksand)', 'sans-serif'],

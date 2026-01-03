@@ -2,6 +2,7 @@
 
 import { Send, User } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 type Comment = {
     id: string;
@@ -29,10 +30,12 @@ const initialComments: Comment[] = [
 ];
 
 export function PostComments() {
+    const t = useTranslations('comments');
+
     return (
         <section className="mt-12">
             <h3 className="font-handwritten text-3xl text-gray-700 mb-8 flex items-center gap-2">
-                💭 Comments (3)
+                💭 {t('title')} (3)
             </h3>
 
             {/* Input Area */}
@@ -40,18 +43,18 @@ export function PostComments() {
                 <div className="mb-4">
                     <input
                         type="text"
-                        placeholder="Nama kamu (opsional)"
+                        placeholder={t('namePlaceholder')}
                         className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-pastel-lilac/50 font-sans outline-none placeholder:text-gray-400 mb-2"
                     />
                     <textarea
                         rows={3}
-                        placeholder="Tulis komentar... Share your thoughts! ✨"
+                        placeholder={t('commentPlaceholder')}
                         className="w-full bg-gray-50 border-none rounded-2xl px-4 py-3 text-sm focus:ring-2 focus:ring-pastel-lilac/50 font-sans outline-none placeholder:text-gray-400 resize-none"
                     ></textarea>
                 </div>
                 <div className="flex justify-end">
                     <button className="bg-pastel-lilac text-gray-700 px-6 py-2 rounded-xl font-bold text-sm hover:bg-pastel-lilac-border transition-colors flex items-center gap-2">
-                        <Send size={16} /> Kirim
+                        <Send size={16} /> {t('submit')}
                     </button>
                 </div>
             </div>
@@ -82,7 +85,7 @@ export function PostComments() {
                                             <span className="text-lg">♡</span> {comment.likes}
                                         </button>
                                         <button className="text-xs text-gray-400 hover:text-pastel-lilac-border transition-colors">
-                                            Reply
+                                            {t('reply')}
                                         </button>
                                     </div>
                                 </div>

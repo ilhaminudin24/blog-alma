@@ -1,0 +1,103 @@
+{
+    "nav": {
+        "home": "Beranda",
+        "about": "Tentang Saya",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title": "Selamat Datang di\nRuang Cerita Alma",
+        "subtitle": "Tempat berbagi cerita, bertumbuh bersama, dan menemukan teman curhat ✨",
+        "chip1": "📝 Cerita Pribadi",
+        "chip2": "💭 Tanya Jawab",
+        "chip3": "💜 Connect",
+        "readMore": "Mulai Baca",
+        "explore": "Jelajahi Kategori"
+    },
+    "categories": {
+        "personal-story": "Cerita Pribadi",
+        "lifestyle": "Gaya Hidup",
+        "beauty-care": "Kecantikan",
+        "creative": "Kreatif",
+        "psychology": "Psikologi",
+        "qna": "Tanya Jawab"
+    },
+    "recent": {
+        "title": "Cerita Terbaru"
+    },
+    "highlight": {
+        "title": "Paling Disukai",
+        "comment": "Komentar"
+    },
+    "footer": {
+        "tagline": "Ruang pribadiku untuk berbagi cerita, pengalaman, dan hal-hal random yang ada di kepala. Welcome to my little corner of the internet! 💜",
+        "quickLinks": "Tautan Cepat",
+        "linkHome": "Beranda",
+        "linkCategories": "Kategori",
+        "linkAbout": "Tentang Aku",
+        "connect": "Yuk Temenan!",
+        "dmOpen": "DM selalu terbuka untuk ngobrol! ✨",
+        "copyright": "My Diary. Dibuat dengan",
+        "copyrightEnd": "dan banyak kopi."
+    },
+    "header": {
+        "siteName": "Ruang Cerita Alma"
+    },
+    "blog": {
+        "backToHome": "Kembali ke Beranda",
+        "readingTime": "menit baca",
+        "sharePost": "Bagikan postingan ini",
+        "relatedPosts": "Baca Juga",
+        "thanksMessage": "Terima kasih udah mampir dan baca sampai sini! See you in the next post!"
+    },
+    "engagement": {
+        "question": "Gimana pendapat kamu?",
+        "likePrompt": "Kasih love kalau kamu suka tulisan ini ya!",
+        "share": "Share"
+    },
+    "comments": {
+        "title": "Komentar",
+        "namePlaceholder": "Nama kamu (opsional)",
+        "commentPlaceholder": "Tulis komentar... Share your thoughts! ✨",
+        "submit": "Kirim",
+        "reply": "Balas"
+    },
+    "about": {
+        "title": "Tentang Aku",
+        "description": "Kenali Alma dan dunia kecilnya."
+    },
+    "qna": {
+        "sectionLabel": "Pojok Penasaran",
+        "title": "Tanyakan Apa Saja",
+        "viewAll": "Lihat Semua Pertanyaan"
+    },
+    "postHeader": {
+        "home": "Beranda",
+        "minRead": "menit baca",
+        "mood": "Mood:",
+        "nowPlaying": "Sedang Diputar"
+    },
+    "category": {
+        "backToHome": "Kembali ke Beranda",
+        "noPostsFound": "Belum ada postingan di kategori ini! 🍂",
+        "personal-story": {
+            "name": "Cerita Pribadi",
+            "description": "Cerita dan pengalaman hidupku. 📖"
+        },
+        "lifestyle": {
+            "name": "Gaya Hidup",
+            "description": "Menciptakan hidup yang aku cintai, satu hari pada satu waktu. ✨"
+        },
+        "beauty-care": {
+            "name": "Kecantikan & Perawatan",
+            "description": "Glowing dengan produk dan rutinitas favoritku. 💄"
+        },
+        "creative": {
+            "name": "Kreatif",
+            "description": "Hal-hal yang membuatku bahagia dan kreatif. 🎨"
+        },
+        "psychology": {
+            "name": "Psikologi",
+            "description": "Pemikiran tentang pikiran, emosi, dan perilaku manusia. 🧠"
+        }
+    }
+}
