@@ -5,7 +5,7 @@ import { PostEngagement } from '@/components/blog/PostEngagement';
 import { PostComments } from '@/components/blog/PostComments';
 import { RecentPosts } from '@/components/home/RecentPosts';
 import { client } from '@/sanity/lib/client';
-import { postPathsQuery, postQuery } from '@/sanity/lib/queries';
+import { postPathsQuery, postQuery, postCommentsQuery } from '@/sanity/lib/queries';
 import { PortableText } from '@portabletext/react';
 import { PortableTextComponents } from '@/components/blog/PortableTextComponents';
 import { getTranslations } from 'next-intl/server';
@@ -27,6 +27,7 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: { params: Promise<{ locale: string; slug: string }> }) {
     const { slug, locale } = await params;
     const post: any = await client.fetch(postQuery, { slug, language: locale });
+    const comments = await client.fetch(postCommentsQuery, { postId: post?._id });
     const t = await getTranslations({ locale, namespace: 'blog' });
 
     if (!post) {
@@ -62,7 +63,7 @@ export default async function BlogPost({ params }: { params: Promise<{ locale: s
                     </p>
 
                     <PostEngagement initialLikes={post.likes} postId={post._id} />
-                    <PostComments />
+                    <PostComments postId={post._id} initialComments={comments} />
                 </div>
             </div>
 

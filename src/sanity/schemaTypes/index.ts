@@ -10,6 +10,7 @@ import { localizedText } from './localizedText'
 import { localizedBlock } from './localizedBlock'
 import { aboutType } from './aboutType'
 import { siteSettingsType } from './siteSettingsType'
+import { commentType } from './commentType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
@@ -24,5 +25,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         localizedBlock,
         aboutType,
         siteSettingsType,
+        commentType,
     ],
 }

@@ -80,7 +80,7 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
   layout
 }`);
 
-export const featuredPostsQuery = defineQuery(`*[_type == "post" && likes > 30] | order(likes desc)[0...3] {
+export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 || count(*[_type == "comment" && post._ref == ^._id && approved == true]) > 0)] | order(likes desc)[0...3] {
   _id,
   "title": coalesce(title[$language], title['id']),
   "slug": slug.current,
@@ -135,64 +135,71 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
   layout
 }`);
 
+export const postCommentsQuery = defineQuery(`* [_type == "comment" && post._ref == $postId && approved == true] | order(_createdAt desc) {
+  _id,
+  name,
+  content,
+  _createdAt
+}`);
+
 // About page query
-export const aboutQuery = defineQuery(`*[_type == "about"][0] {
+export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   name,
   "role": coalesce(role[$language], role['id']),
   "greeting": coalesce(greeting[$language], greeting['id']),
   "introduction": coalesce(introduction[$language], introduction['id']),
   "storyTitle": coalesce(storyTitle[$language], storyTitle['id']),
-  "story": story[]{ 
-    "text": coalesce(@[$language], @['id']) 
-  },
+  "story": story[]{
+  "text": coalesce(@[$language], @['id'])
+},
   "funFactsTitle": coalesce(funFactsTitle[$language], funFactsTitle['id']),
   "funFacts": funFacts[]{
-    icon,
-    "label": coalesce(label[$language], label['id']),
-    "value": coalesce(value[$language], value['id'])
-  },
+  icon,
+  "label": coalesce(label[$language], label['id']),
+  "value": coalesce(value[$language], value['id'])
+},
   "favoritesTitle": coalesce(favoritesTitle[$language], favoritesTitle['id']),
   "favorites": favorites[]{
-    "category": coalesce(category[$language], category['id']),
-    "items": items[]{ "name": coalesce(@[$language], @['id']) },
-    color
+  "category": coalesce(category[$language], category['id']),
+  "items": items[]{ "name": coalesce(@[$language], @['id']) },
+  color
   },
-  "gallery": gallery[]{
-    "src": asset->url,
+"gallery": gallery[]{
+  "src": asset -> url,
     "alt": coalesce(alt[$language], alt['id']),
-    "caption": coalesce(caption[$language], caption['id'])
-  }
+      "caption": coalesce(caption[$language], caption['id'])
+}
 }`);
 
 // Site Settings query (Hero + Footer)
-export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0] {
+export const siteSettingsQuery = defineQuery(`* [_type == "siteSettings"][0] {
   // Hero Section
   "heroTitle": coalesce(heroTitle[$language], heroTitle['id']),
-  "heroSubtitle": coalesce(heroSubtitle[$language], heroSubtitle['id']),
-  "heroChips": heroChips[]{
+    "heroSubtitle": coalesce(heroSubtitle[$language], heroSubtitle['id']),
+      "heroChips": heroChips[]{
     emoji,
-    "text": coalesce(text[$language], text['id'])
+      "text": coalesce(text[$language], text['id'])
   },
   "heroPrimaryButton": {
     "text": coalesce(heroPrimaryButton.text[$language], heroPrimaryButton.text['id']),
-    "scrollTarget": heroPrimaryButton.scrollTarget
+      "scrollTarget": heroPrimaryButton.scrollTarget
   },
   "heroSecondaryButton": {
     "text": coalesce(heroSecondaryButton.text[$language], heroSecondaryButton.text['id']),
-    "scrollTarget": heroSecondaryButton.scrollTarget
+      "scrollTarget": heroSecondaryButton.scrollTarget
   },
-  
+
   // Footer Section
   "footerBrandName": coalesce(footerBrandName[$language], footerBrandName['id']),
-  "footerTagline": coalesce(footerTagline[$language], footerTagline['id']),
-  "footerQuickLinksTitle": coalesce(footerQuickLinksTitle[$language], footerQuickLinksTitle['id']),
-  "footerQuickLinks": footerQuickLinks[]{
+    "footerTagline": coalesce(footerTagline[$language], footerTagline['id']),
+      "footerQuickLinksTitle": coalesce(footerQuickLinksTitle[$language], footerQuickLinksTitle['id']),
+        "footerQuickLinks": footerQuickLinks[]{
     "label": coalesce(label[$language], label['id']),
-    href
+      href
   },
   "footerConnectTitle": coalesce(footerConnectTitle[$language], footerConnectTitle['id']),
-  footerSocialLinks,
-  "footerDmText": coalesce(footerDmText[$language], footerDmText['id']),
-  "footerCopyrightPrefix": coalesce(footerCopyrightPrefix[$language], footerCopyrightPrefix['id']),
-  "footerCopyrightSuffix": coalesce(footerCopyrightSuffix[$language], footerCopyrightSuffix['id'])
-}`);
+    footerSocialLinks,
+    "footerDmText": coalesce(footerDmText[$language], footerDmText['id']),
+      "footerCopyrightPrefix": coalesce(footerCopyrightPrefix[$language], footerCopyrightPrefix['id']),
+        "footerCopyrightSuffix": coalesce(footerCopyrightSuffix[$language], footerCopyrightSuffix['id'])
+} `);
