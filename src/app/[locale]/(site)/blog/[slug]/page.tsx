@@ -11,11 +11,17 @@ import { PortableTextComponents } from '@/components/blog/PortableTextComponents
 import { getTranslations } from 'next-intl/server';
 
 // Static generation for all posts
+// Static generation for all posts
 export async function generateStaticParams() {
     const posts = await client.fetch(postPathsQuery);
-    return posts.map((post: any) => ({
-        slug: post.slug,
-    }));
+    const { routing } = await import('@/i18n/routing');
+
+    return posts.flatMap((post: any) =>
+        routing.locales.map((locale) => ({
+            slug: post.slug,
+            locale: locale
+        }))
+    );
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ locale: string; slug: string }> }) {

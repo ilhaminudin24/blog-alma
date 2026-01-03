@@ -66,9 +66,14 @@ interface Post {
 
 export async function generateStaticParams() {
     const categories = await client.fetch(categoryPathsQuery);
-    return categories.map((cat: { slug: string }) => ({
-        slug: cat.slug,
-    }));
+    const { routing } = await import('@/i18n/routing');
+
+    return categories.flatMap((cat: { slug: string }) =>
+        routing.locales.map((locale) => ({
+            slug: cat.slug,
+            locale: locale
+        }))
+    );
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
