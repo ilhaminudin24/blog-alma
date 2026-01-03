@@ -5,7 +5,7 @@ export default function StudioLayout({
 }) {
     return (
         <html lang="en">
-            <body>
+            <body suppressHydrationWarning>
                 <div className="min-h-screen bg-gray-50">
                     {children}
                 </div>

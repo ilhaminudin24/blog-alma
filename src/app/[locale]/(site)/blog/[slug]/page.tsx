@@ -61,7 +61,7 @@ export default async function BlogPost({ params }: { params: Promise<{ locale: s
                         {t('thanksMessage')} 💜
                     </p>
 
-                    <PostEngagement initialLikes={post.likes} />
+                    <PostEngagement initialLikes={post.likes} postId={post._id} />
                     <PostComments />
                 </div>
             </div>
