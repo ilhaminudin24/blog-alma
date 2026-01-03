@@ -1,5 +1,5 @@
 import { Post } from './types';
-import { musicLibrary } from './music';
+
 
 export const posts: Post[] = [
     // --- Makeup & Skincare ---
@@ -18,7 +18,7 @@ export const posts: Post[] = [
             slug: 'makeup-and-skincare'
         },
         mood: 'Happy',
-        music: musicLibrary[1],
+
         content: [], // Placeholder for Portable Text
         featured: true,
         likes: 124,
@@ -39,7 +39,7 @@ export const posts: Post[] = [
             slug: 'makeup-and-skincare'
         },
         mood: 'Excited',
-        music: musicLibrary[1],
+
         content: [],
         featured: true,
         likes: 89,
@@ -60,7 +60,7 @@ export const posts: Post[] = [
             slug: 'makeup-and-skincare'
         },
         mood: 'Relaxed',
-        music: musicLibrary[0],
+
         content: [],
         featured: false,
         likes: 45,
@@ -81,7 +81,7 @@ export const posts: Post[] = [
             slug: 'makeup-and-skincare'
         },
         mood: 'Relaxed',
-        music: musicLibrary[4],
+
         content: [],
         featured: false,
         likes: 62,
@@ -104,7 +104,7 @@ export const posts: Post[] = [
             slug: 'daily-life'
         },
         mood: 'Relaxed',
-        music: musicLibrary[0],
+
         content: [],
         featured: true,
         likes: 210,
@@ -125,7 +125,7 @@ export const posts: Post[] = [
             slug: 'daily-life'
         },
         mood: 'Nostalgic',
-        music: musicLibrary[5],
+
         content: [],
         featured: false,
         likes: 34,
@@ -146,7 +146,7 @@ export const posts: Post[] = [
             slug: 'daily-life'
         },
         mood: 'Energetic',
-        music: musicLibrary[3],
+
         content: [],
         featured: true,
         likes: 156,
@@ -167,7 +167,7 @@ export const posts: Post[] = [
             slug: 'daily-life'
         },
         mood: 'Melancholy',
-        music: musicLibrary[5],
+
         content: [],
         featured: false,
         likes: 98,
@@ -190,7 +190,7 @@ export const posts: Post[] = [
             slug: 'hobbies'
         },
         mood: 'Creative',
-        music: musicLibrary[2],
+
         content: [],
         featured: false,
         likes: 77,
@@ -211,7 +211,7 @@ export const posts: Post[] = [
             slug: 'hobbies'
         },
         mood: 'Excited',
-        music: musicLibrary[0],
+
         content: [],
         featured: true,
         likes: 112,
@@ -232,7 +232,7 @@ export const posts: Post[] = [
             slug: 'hobbies'
         },
         mood: 'Happy',
-        music: musicLibrary[3],
+
         content: [],
         featured: false,
         likes: 54,
@@ -255,7 +255,7 @@ export const posts: Post[] = [
             slug: 'lifestyle'
         },
         mood: 'Grateful',
-        music: musicLibrary[3],
+
         content: [],
         featured: true,
         likes: 205,
@@ -276,7 +276,7 @@ export const posts: Post[] = [
             slug: 'lifestyle'
         },
         mood: 'Energetic',
-        music: musicLibrary[1],
+
         content: [],
         featured: false,
         likes: 88,
@@ -297,7 +297,7 @@ export const posts: Post[] = [
             slug: 'lifestyle'
         },
         mood: 'Relaxed',
-        music: musicLibrary[4],
+
         content: [],
         featured: false,
         likes: 134,

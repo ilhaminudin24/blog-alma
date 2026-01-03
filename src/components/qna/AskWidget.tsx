@@ -4,13 +4,15 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X, Send, User } from "lucide-react"
 
-export default function AskWidget() {
+export default function AskWidget({ visible = true }: { visible?: boolean }) {
     const [isOpen, setIsOpen] = useState(false)
     const [question, setQuestion] = useState("")
     const [name, setName] = useState("")
     // Honeypot field - should remain empty
     const [hp, setHp] = useState("")
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
+
+    if (!visible) return null;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()

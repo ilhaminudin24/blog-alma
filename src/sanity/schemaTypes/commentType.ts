@@ -17,6 +17,7 @@ export const commentType = defineType({
             name: 'post',
             type: 'reference',
             to: [{ type: 'post' }],
+            weak: true,
         }),
         defineField({
             name: 'approved',

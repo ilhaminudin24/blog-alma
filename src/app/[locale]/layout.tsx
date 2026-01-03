@@ -18,6 +18,7 @@ const bubblegumSans = Bubblegum_Sans({
 export const metadata: Metadata = {
     title: "Ruang Cerita Alma",
     description: "A personal blog sharing stories and lifestyle.",
+    manifest: '/site.webmanifest',
 };
 
 export default async function LocaleLayout({

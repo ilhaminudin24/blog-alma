@@ -1,4 +1,4 @@
-import { BookOpen, Coffee, Palette, Sparkles, Brain, MessageCircleQuestion, Heart, Star, Music, Camera } from 'lucide-react';
+import { BookOpen, Coffee, Palette, Sparkles, Brain, MessageCircleQuestion, Heart, Star, Music, Camera, Sun } from 'lucide-react';
 import { Sticker } from '../ui/Sticker';
 import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
@@ -17,6 +17,7 @@ const iconMap: Record<string, React.ReactNode> = {
     'star': <Star className="w-8 h-8" />,
     'music': <Music className="w-8 h-8" />,
     'camera': <Camera className="w-8 h-8" />,
+    'sun': <Sun className="w-8 h-8" />,
 };
 
 // Map color string to Tailwind classes

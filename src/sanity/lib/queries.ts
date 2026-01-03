@@ -42,12 +42,7 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(date desc) {
     "slug": slug.current
   },
   mood,
-  "music": music->{
-    title,
-    artist,
-    "src": src,
-    mood
-  },
+
   featured,
   likes,
   layout
@@ -68,12 +63,7 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
     "slug": slug.current
   },
   mood,
-  "music": music->{
-    title,
-    artist,
-    "src": src,
-    mood
-  },
+
   "content": coalesce(content[$language], content['id']),
   featured,
   likes,
@@ -95,12 +85,7 @@ export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 
     "slug": slug.current
   },
   mood,
-  "music": music->{
-    title,
-    artist,
-    "src": src,
-    mood
-  },
+
   featured,
   likes
 }`);
@@ -124,12 +109,7 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
     "slug": slug.current
   },
   mood,
-  "music": music->{
-    title,
-    artist,
-    "src": src,
-    mood
-  },
+
   featured,
   likes,
   layout
@@ -201,5 +181,8 @@ export const siteSettingsQuery = defineQuery(`* [_type == "siteSettings"][0] {
     footerSocialLinks,
     "footerDmText": coalesce(footerDmText[$language], footerDmText['id']),
       "footerCopyrightPrefix": coalesce(footerCopyrightPrefix[$language], footerCopyrightPrefix['id']),
-        "footerCopyrightSuffix": coalesce(footerCopyrightSuffix[$language], footerCopyrightSuffix['id'])
+        "footerCopyrightSuffix": coalesce(footerCopyrightSuffix[$language], footerCopyrightSuffix['id']),
+
+  // Q&A Widget
+  "showAskWidget": coalesce(showAskWidget, true)
 } `);

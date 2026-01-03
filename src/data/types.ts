@@ -8,12 +8,6 @@ export interface Category {
 
 export type Mood = 'Happy' | 'Melancholy' | 'Energetic' | 'Relaxed' | 'Excited' | 'Nostalgic' | 'Grateful' | 'Creative';
 
-export interface MusicTrack {
-    title: string;
-    artist: string;
-    src: string; // URL
-    mood?: string;
-}
 
 export interface Post {
     _id: string;
@@ -27,7 +21,6 @@ export interface Post {
     date: string;
     category: Category;
     mood: string;
-    music?: MusicTrack;
     content: any; // Portable Text block array
     featured: boolean;
     likes: number;

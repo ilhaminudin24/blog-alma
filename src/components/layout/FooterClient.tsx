@@ -49,12 +49,14 @@ export function FooterClient({ settings }: { settings: FooterSettings }) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="space-y-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-[#9c27b0]/10 rounded-full flex items-center justify-center text-[#9c27b0]">
-                                <Sparkles size={20} />
+                        <Link href="/" className="flex items-center gap-2 group">
+                            <div className="bg-[#ff85a2] p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
+                                <Coffee className="w-5 h-5 text-white stroke-white" />
                             </div>
-                            <h3 className="font-handwritten text-2xl text-gray-800">{settings.brandName}</h3>
-                        </div>
+                            <span className="font-rounded font-bold text-xl text-gray-800 tracking-tight">
+                                {settings.brandName}
+                            </span>
+                        </Link>
                         <p className="text-gray-500 leading-relaxed text-sm max-w-xs">
                             {settings.tagline}
                         </p>

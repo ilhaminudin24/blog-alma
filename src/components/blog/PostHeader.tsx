@@ -1,6 +1,6 @@
 import { Post } from '@/data/types';
 import { Badge, BadgeVariant } from '../ui/badge';
-import { ArrowLeft, Clock, Calendar, Disc } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 
@@ -55,21 +55,6 @@ export async function PostHeader({ post }: { post: Post }) {
 
             <div className="aspect-video w-full rounded-[2.5rem] overflow-hidden shadow-lg relative bg-gray-50 border-4 border-white ring-1 ring-gray-100 group">
                 <img src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-
-                {post.music && (
-                    <div className="absolute top-6 right-6 lg:top-8 lg:right-8">
-                        <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold text-gray-700 shadow-lg border border-white/50 flex items-center gap-3 hover:scale-105 transition-transform cursor-default">
-                            <div className="relative">
-                                <Disc size={20} className="animate-spin-slow text-pastel-lilac-darker" />
-                                <div className="absolute inset-0 bg-pastel-lilac rounded-full blur-sm opacity-50"></div>
-                            </div>
-                            <div className="flex flex-col text-left">
-                                <span className="text-[10px] text-gray-500 uppercase tracking-wider font-sans">{t('nowPlaying')}</span>
-                                <span className="font-rounded leading-none">{post.music.title}</span>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </header>
     )

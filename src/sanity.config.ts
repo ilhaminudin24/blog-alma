@@ -25,4 +25,20 @@ export default defineConfig({
         // https://www.sanity.io/docs/the-vision-plugin
         visionTool({ defaultApiVersion: apiVersion }),
     ],
+    document: {
+        actions: (prev, context) => {
+            const { schemaType } = context
+            if (schemaType === 'post') {
+                return prev.map((originalAction) =>
+                    originalAction.action === 'delete'
+                        ? // Replace the default delete action with our custom one (or add alongside)
+                        // To keep it simple and safe, we'll ADD our action alongside the default one
+                        // since we also fixed the default one with weak:true.
+                        originalAction
+                        : originalAction
+                ).concat([require('./sanity/lib/actions').DeleteWithComments])
+            }
+            return prev
+        },
+    },
 })

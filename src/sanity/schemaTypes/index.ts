@@ -1,6 +1,6 @@
 import { type SchemaTypeDefinition } from 'sanity'
 import { postType } from './postType'
-import { musicType } from './musicType'
+
 import { quoteType } from './quoteType'
 import { moodBoardType } from './moodBoardType'
 import { qnaType } from './qnaType'
@@ -15,7 +15,7 @@ import { commentType } from './commentType'
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
         postType,
-        musicType,
+
         quoteType,
         moodBoardType,
         qnaType,

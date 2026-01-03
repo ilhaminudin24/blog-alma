@@ -38,7 +38,8 @@ export const categoryType = defineType({
             options: {
                 list: [
                     { title: 'Book Open (Personal Story)', value: 'book-open' },
-                    { title: 'Coffee (Lifestyle)', value: 'coffee' },
+                    { title: 'Sun (Lifestyle)', value: 'sun' },
+                    { title: 'Coffee', value: 'coffee' },
                     { title: 'Sparkles (Beauty & Care)', value: 'sparkles' },
                     { title: 'Palette (Creative)', value: 'palette' },
                     { title: 'Brain (Psychology)', value: 'brain' },

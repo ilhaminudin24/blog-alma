@@ -7,8 +7,19 @@ export const siteSettingsType = defineType({
     groups: [
         { name: 'hero', title: 'Hero Section' },
         { name: 'footer', title: 'Footer Section' },
+        { name: 'qna', title: 'Q&A Widget' },
     ],
     fields: [
+        // ==================== Q&A WIDGET ====================
+        defineField({
+            name: 'showAskWidget',
+            title: 'Show "Ask Me Anything" Widget',
+            description: 'Toggle to show or hide the floating Q&A widget on the website',
+            type: 'boolean',
+            initialValue: true,
+            group: 'qna',
+        }),
+
         // ==================== HERO SECTION ====================
         defineField({
             name: 'heroTitle',

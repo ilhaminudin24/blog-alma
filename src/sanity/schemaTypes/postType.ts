@@ -76,12 +76,7 @@ export const postType = defineType({
                 ],
             },
         }),
-        defineField({
-            name: 'music',
-            title: 'Music',
-            type: 'reference',
-            to: [{ type: 'music' }],
-        }),
+
         defineField({
             name: 'featured',
             title: 'Featured',
