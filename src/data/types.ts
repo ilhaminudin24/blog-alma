@@ -1,30 +1,37 @@
-export type Category = 'Daily Life' | 'Lifestyle' | 'Hobbies' | 'Makeup & Skincare';
+export interface Category {
+    name: string;
+    slug: string;
+    description?: string;
+    icon?: string;
+    color?: string;
+}
+
 export type Mood = 'Happy' | 'Melancholy' | 'Energetic' | 'Relaxed' | 'Excited' | 'Nostalgic' | 'Grateful' | 'Creative';
 
 export interface MusicTrack {
-    id: string;
     title: string;
     artist: string;
     src: string; // URL
-    duration?: string;
-    category?: Category; // Linked to a category or general
-    mood?: Mood;
+    mood?: string;
 }
 
 export interface Post {
-    id: string;
-    slug: string;
+    _id: string;
     title: string;
+    slug: string;
     excerpt: string;
-    coverImage: string; // URL
+    coverImage: {
+        url: string;
+        alt?: string;
+    };
     date: string;
     category: Category;
-    mood: Mood;
-    music?: MusicTrack; // Specific track for this post
-    content: string; // Markdown/HTML
+    mood: string;
+    music?: MusicTrack;
+    content: any; // Portable Text block array
     featured: boolean;
     likes: number;
-    layout?: 'normal' | 'wide' | 'tall'; // For Bento Grid sizing
+    layout?: 'normal' | 'wide' | 'tall';
 }
 
 export interface UserProfile {
