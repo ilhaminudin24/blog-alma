@@ -1,6 +1,5 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { MusicPlayer } from "@/components/layout/MusicPlayer";
 import { TextureOverlay } from "@/components/ui/TextureOverlay";
 import AskWidget from "@/components/qna/AskWidget";
 import { client } from "@/sanity/lib/client";
@@ -23,7 +22,6 @@ export default async function SiteLayout({
             </main>
             <Footer />
             <TextureOverlay />
-            <MusicPlayer />
             <AskWidget visible={settings?.showAskWidget} />
         </>
     );

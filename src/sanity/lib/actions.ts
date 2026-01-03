@@ -2,7 +2,6 @@
 import { TrashIcon } from '@sanity/icons'
 import { useCallback, useState } from 'react'
 import {
-    DocumentActionHeader,
     DocumentActionProps,
     useClient,
     useDocumentOperation
