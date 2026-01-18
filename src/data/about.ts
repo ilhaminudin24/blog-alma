@@ -1,7 +1,6 @@
 
 export interface AboutData {
     name: string;
-    role: string;
     greeting: string;
     introduction: string;
     story: string[];
@@ -15,16 +14,10 @@ export interface AboutData {
         items: string[];
         color: string; // Tailwind color class helper
     }[];
-    gallery: {
-        src: string;
-        alt: string;
-        caption?: string;
-    }[];
 }
 
 export const aboutData: AboutData = {
     name: "Alma",
-    role: "Daydreamer & Storyteller",
     greeting: "Hello, Beautiful Soul! ✨",
     introduction: "I'm Alma, just a girl who loves turning ordinary moments into magical memories. Welcome to my little corner of the internet.",
     story: [
@@ -53,23 +46,6 @@ export const aboutData: AboutData = {
             category: "Hobbies",
             items: ["Journaling", "Photography", "Stargazing"],
             color: "bg-pastel-lilac"
-        }
-    ],
-    gallery: [
-        {
-            src: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2000&auto=format&fit=crop",
-            alt: "A cozy reading corner",
-            caption: "My happy place 📚"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?q=80&w=2000&auto=format&fit=crop",
-            alt: "Journaling in a cafe",
-            caption: "Planning big dreams ✍️"
-        },
-        {
-            src: "https://images.unsplash.com/photo-1490481638943-ddcdcf6287ef?q=80&w=2000&auto=format&fit=crop",
-            alt: "Flowers in sunlight",
-            caption: "Little joys 🌸"
         }
     ]
 };

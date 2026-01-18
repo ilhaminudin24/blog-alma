@@ -125,7 +125,6 @@ export const postCommentsQuery = defineQuery(`* [_type == "comment" && post._ref
 // About page query
 export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   name,
-  "role": coalesce(role[$language], role['id']),
   "greeting": coalesce(greeting[$language], greeting['id']),
   "introduction": coalesce(introduction[$language], introduction['id']),
   "storyTitle": coalesce(storyTitle[$language], storyTitle['id']),
@@ -143,12 +142,7 @@ export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   "category": coalesce(category[$language], category['id']),
   "items": items[]{ "name": coalesce(@[$language], @['id']) },
   color
-  },
-"gallery": gallery[]{
-  "src": asset -> url,
-    "alt": coalesce(alt[$language], alt['id']),
-      "caption": coalesce(caption[$language], caption['id'])
-}
+  }
 }`);
 
 // Site Settings query (Hero + Footer)

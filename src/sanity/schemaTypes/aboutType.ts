@@ -13,11 +13,6 @@ export const aboutType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'role',
-            title: 'Role/Tagline',
-            type: 'localizedString',
-        }),
-        defineField({
             name: 'greeting',
             title: 'Greeting',
             type: 'localizedString',
@@ -108,21 +103,6 @@ export const aboutType = defineType({
                 },
             }],
         }),
-
-        // Gallery Section
-        defineField({
-            name: 'gallery',
-            title: 'Gallery Images',
-            type: 'array',
-            of: [{
-                type: 'image',
-                options: { hotspot: true },
-                fields: [
-                    { name: 'alt', title: 'Alt Text', type: 'localizedString' },
-                    { name: 'caption', title: 'Caption', type: 'localizedString' },
-                ],
-            }],
-        }),
     ],
     preview: {
         select: { title: 'name' },
@@ -131,3 +111,4 @@ export const aboutType = defineType({
         }),
     },
 })
+

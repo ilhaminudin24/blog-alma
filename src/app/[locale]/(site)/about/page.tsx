@@ -3,7 +3,6 @@ import { aboutQuery } from '@/sanity/lib/queries';
 import { AboutHero } from '@/components/about/AboutHero';
 import { AboutContent } from '@/components/about/AboutContent';
 import { AboutFavorites } from '@/components/about/AboutFavorites';
-import { AboutGallery } from '@/components/about/AboutGallery';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -34,12 +33,6 @@ interface Favorite {
     color: string;
 }
 
-interface GalleryImage {
-    src: string;
-    alt: string;
-    caption?: string;
-}
-
 interface AboutData {
     name: string;
     role: string;
@@ -51,7 +44,6 @@ interface AboutData {
     funFacts: FunFact[];
     favoritesTitle: string;
     favorites: Favorite[];
-    gallery: GalleryImage[];
 }
 
 export default async function AboutPage() {
@@ -74,7 +66,6 @@ export default async function AboutPage() {
             <main className="pt-24 pb-24">
                 <AboutHero
                     greeting={about.greeting}
-                    role={about.role}
                     intro={about.introduction}
                 />
 
@@ -93,8 +84,6 @@ export default async function AboutPage() {
                         color: f.color,
                     }))}
                 />
-
-                <AboutGallery images={about.gallery} />
             </main>
         </div>
     );
