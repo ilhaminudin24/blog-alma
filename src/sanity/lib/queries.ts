@@ -126,7 +126,6 @@ export const postCommentsQuery = defineQuery(`* [_type == "comment" && post._ref
 export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   name,
   "greeting": coalesce(greeting[$language], greeting['id']),
-  "introduction": coalesce(introduction[$language], introduction['id']),
   "storyTitle": coalesce(storyTitle[$language], storyTitle['id']),
   "story": story[]{
   "text": coalesce(@[$language], @['id'])

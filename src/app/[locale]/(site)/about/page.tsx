@@ -35,9 +35,7 @@ interface Favorite {
 
 interface AboutData {
     name: string;
-    role: string;
     greeting: string;
-    introduction: string;
     storyTitle: string;
     story: StoryItem[];
     funFactsTitle: string;
@@ -64,10 +62,7 @@ export default async function AboutPage() {
             <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none"></div>
 
             <main className="pt-24 pb-24">
-                <AboutHero
-                    greeting={about.greeting}
-                    intro={about.introduction}
-                />
+                <AboutHero greeting={about.greeting} />
 
                 <AboutContent
                     storyTitle={about.storyTitle}

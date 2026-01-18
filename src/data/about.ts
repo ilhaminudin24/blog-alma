@@ -2,7 +2,6 @@
 export interface AboutData {
     name: string;
     greeting: string;
-    introduction: string;
     story: string[];
     funFacts: {
         icon: string;
@@ -19,7 +18,6 @@ export interface AboutData {
 export const aboutData: AboutData = {
     name: "Alma",
     greeting: "Hello, Beautiful Soul! ✨",
-    introduction: "I'm Alma, just a girl who loves turning ordinary moments into magical memories. Welcome to my little corner of the internet.",
     story: [
         "Ever since I was little, I've had a fascination with keeping diaries. There's something magical about freezing a moment in time with just ink and paper.",
         "This blog is an extension of that love—a digital garden where I plant my thoughts, water them with creativity, and watch them bloom.",

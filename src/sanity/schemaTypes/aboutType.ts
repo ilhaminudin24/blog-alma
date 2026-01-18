@@ -17,11 +17,6 @@ export const aboutType = defineType({
             title: 'Greeting',
             type: 'localizedString',
         }),
-        defineField({
-            name: 'introduction',
-            title: 'Introduction',
-            type: 'localizedText',
-        }),
 
         // Story Section
         defineField({
