@@ -12,11 +12,7 @@ export const aboutType = defineType({
             type: 'string',
             validation: (Rule) => Rule.required(),
         }),
-        defineField({
-            name: 'greeting',
-            title: 'Greeting',
-            type: 'localizedString',
-        }),
+
 
         // Story Section
         defineField({
@@ -57,47 +53,7 @@ export const aboutType = defineType({
             }],
         }),
 
-        // Favorites Section
-        defineField({
-            name: 'favoritesTitle',
-            title: 'Favorites Section Title',
-            type: 'localizedString',
-        }),
-        defineField({
-            name: 'favorites',
-            title: 'Favorites Categories',
-            type: 'array',
-            of: [{
-                type: 'object',
-                fields: [
-                    { name: 'category', title: 'Category Name', type: 'localizedString' },
-                    {
-                        name: 'items',
-                        title: 'Items',
-                        type: 'array',
-                        of: [{ type: 'localizedString' }]
-                    },
-                    {
-                        name: 'color',
-                        title: 'Background Color',
-                        type: 'string',
-                        options: {
-                            list: [
-                                { title: 'Pastel Blue', value: 'bg-pastel-blue' },
-                                { title: 'Pastel Pink', value: 'bg-pastel-pink' },
-                                { title: 'Pastel Lilac', value: 'bg-pastel-lilac' },
-                                { title: 'Pastel Yellow', value: 'bg-pastel-yellow' },
-                                { title: 'Pastel Mint', value: 'bg-pastel-mint' },
-                                { title: 'Pastel Peach', value: 'bg-pastel-peach' },
-                            ],
-                        },
-                    },
-                ],
-                preview: {
-                    select: { title: 'category.id' },
-                },
-            }],
-        }),
+
     ],
     preview: {
         select: { title: 'name' },

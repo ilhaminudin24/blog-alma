@@ -125,7 +125,7 @@ export const postCommentsQuery = defineQuery(`* [_type == "comment" && post._ref
 // About page query
 export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   name,
-  "greeting": coalesce(greeting[$language], greeting['id']),
+
   "storyTitle": coalesce(storyTitle[$language], storyTitle['id']),
   "story": story[]{
   "text": coalesce(@[$language], @['id'])
@@ -136,12 +136,7 @@ export const aboutQuery = defineQuery(`* [_type == "about"][0] {
   "label": coalesce(label[$language], label['id']),
   "value": coalesce(value[$language], value['id'])
 },
-  "favoritesTitle": coalesce(favoritesTitle[$language], favoritesTitle['id']),
-  "favorites": favorites[]{
-  "category": coalesce(category[$language], category['id']),
-  "items": items[]{ "name": coalesce(@[$language], @['id']) },
-  color
-  }
+
 }`);
 
 // Site Settings query (Hero + Footer)

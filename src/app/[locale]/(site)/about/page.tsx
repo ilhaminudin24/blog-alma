@@ -1,8 +1,7 @@
 import { client } from '@/sanity/lib/client';
 import { aboutQuery } from '@/sanity/lib/queries';
-import { AboutHero } from '@/components/about/AboutHero';
+
 import { AboutContent } from '@/components/about/AboutContent';
-import { AboutFavorites } from '@/components/about/AboutFavorites';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -23,25 +22,15 @@ interface FunFact {
     value: string;
 }
 
-interface FavoriteItem {
-    name: string;
-}
 
-interface Favorite {
-    category: string;
-    items: FavoriteItem[];
-    color: string;
-}
 
 interface AboutData {
     name: string;
-    greeting: string;
+
     storyTitle: string;
     story: StoryItem[];
     funFactsTitle: string;
     funFacts: FunFact[];
-    favoritesTitle: string;
-    favorites: Favorite[];
 }
 
 export default async function AboutPage() {
@@ -61,9 +50,7 @@ export default async function AboutPage() {
             {/* Background decorations matching the theme */}
             <div className="fixed inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none"></div>
 
-            <main className="pt-24 pb-24">
-                <AboutHero greeting={about.greeting} />
-
+            <main className="pt-24 pb-8">
                 <AboutContent
                     storyTitle={about.storyTitle}
                     story={about.story.map((s) => s.text)}
@@ -71,14 +58,6 @@ export default async function AboutPage() {
                     funFacts={about.funFacts}
                 />
 
-                <AboutFavorites
-                    title={about.favoritesTitle}
-                    favorites={about.favorites.map((f) => ({
-                        category: f.category,
-                        items: f.items.map((i) => i.name),
-                        color: f.color,
-                    }))}
-                />
             </main>
         </div>
     );

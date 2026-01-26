@@ -14,7 +14,7 @@ interface AboutContentProps {
 
 export function AboutContent({ storyTitle = "My Little Story", story, funFactsTitle = "Fun Facts", funFacts }: AboutContentProps) {
     return (
-        <section className="py-12 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <section className="pt-12 pb-0 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
 
             {/* Main Story Column */}
             <div className="md:col-span-2 space-y-8">
