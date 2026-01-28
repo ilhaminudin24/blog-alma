@@ -36,7 +36,8 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(date desc) {
     "url": coverImage.asset->url,
     "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
     "size": coverImage.size,
-    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio,
+    "showWatermark": coalesce(coverImage.showWatermark, false)
   },
   date,
   "category": category->{
@@ -58,7 +59,8 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
     "url": coverImage.asset->url,
     "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
     "size": coverImage.size,
-    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio,
+    "showWatermark": coalesce(coverImage.showWatermark, false)
   },
   date,
   "category": category->{
@@ -81,7 +83,8 @@ export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 
     "url": coverImage.asset->url,
     "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
     "size": coverImage.size,
-    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio,
+    "showWatermark": coalesce(coverImage.showWatermark, false)
   },
   date,
   "category": category->{
@@ -106,7 +109,8 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
     "url": coverImage.asset->url,
     "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
     "size": coverImage.size,
-    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio,
+    "showWatermark": coalesce(coverImage.showWatermark, false)
   },
   date,
   "category": category->{

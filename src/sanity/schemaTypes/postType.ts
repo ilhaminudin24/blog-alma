@@ -85,6 +85,13 @@ export const postType = defineType({
                         layout: 'radio',
                     },
                     initialValue: 'normal',
+                },
+                {
+                    name: 'showWatermark',
+                    title: 'Show Watermark (@shealmalia)',
+                    type: 'boolean',
+                    description: 'Overlay the @shealmalia watermark on the cover image',
+                    initialValue: false,
                 }
             ],
             validation: (rule) => rule.required(),

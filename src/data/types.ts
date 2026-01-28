@@ -18,6 +18,7 @@ export interface Post {
         alt?: string;
         size?: 'normal' | 'fullscreen' | 'wide' | 'tall' | 'original';
         aspectRatio?: number;
+        showWatermark?: boolean;
     };
     date: string;
     category: Category;
