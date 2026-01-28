@@ -45,17 +45,28 @@ export async function PostHeader({ post }: { post: Post }) {
                         <Clock size={16} className="text-pastel-mint-border" />
                         <span>5 {t('minRead')}</span>
                     </div>
-                    <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                    <div className="flex items-center gap-2 font-handwritten text-lg text-gray-600">
-                        <span>{t('mood')}</span>
-                        <span className="bg-yellow-50 px-2 py-0.5 transform -rotate-1 shadow-sm border border-yellow-100 rounded-sm">{post.mood}</span>
-                    </div>
+
                 </div>
             </div>
 
-            <div className="aspect-video w-full rounded-[2.5rem] overflow-hidden shadow-lg relative bg-gray-50 border-4 border-white ring-1 ring-gray-100 group">
-                <img src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            </div>
+            {post.coverImage?.size === 'fullscreen' ? (
+                <div className="w-full h-screen absolute top-0 left-0 -z-10 bg-gray-900/20">
+                    <img src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/40 to-white/90"></div>
+                </div>
+            ) : post.coverImage?.size === 'original' ? (
+                <div
+                    className="w-full rounded-[2.5rem] overflow-hidden shadow-lg relative bg-gray-50 border-4 border-white ring-1 ring-gray-100 group mx-auto"
+                    style={{ aspectRatio: post.coverImage.aspectRatio }}
+                >
+                    <img src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+            ) : (
+                <div className={`w-full rounded-[2.5rem] overflow-hidden shadow-lg relative bg-gray-50 border-4 border-white ring-1 ring-gray-100 group ${post.coverImage?.size === 'wide' ? 'aspect-[21/9]' : post.coverImage?.size === 'tall' ? 'aspect-[3/4] max-w-lg mx-auto' : 'aspect-video'
+                    }`}>
+                    <img src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+            )}
         </header>
     )
 }

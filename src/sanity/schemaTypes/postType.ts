@@ -68,6 +68,23 @@ export const postType = defineType({
                     type: 'localizedString',
                     title: 'Alternative text',
                     description: 'Important for SEO and accessibility',
+                },
+                {
+                    name: 'size',
+                    title: 'Image Display Size',
+                    type: 'string',
+                    description: 'Control how the image appears on the post page',
+                    options: {
+                        list: [
+                            { title: 'Normal (16:9)', value: 'normal' },
+                            { title: 'Full Screen', value: 'fullscreen' },
+                            { title: 'Wide (Ultrawide)', value: 'wide' },
+                            { title: 'Tall (Portrait)', value: 'tall' },
+                            { title: 'Original (No Crop)', value: 'original' },
+                        ],
+                        layout: 'radio',
+                    },
+                    initialValue: 'normal',
                 }
             ],
             validation: (rule) => rule.required(),

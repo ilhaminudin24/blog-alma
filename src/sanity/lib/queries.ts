@@ -34,14 +34,15 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(date desc) {
   "excerpt": coalesce(excerpt[$language], excerpt['id']),
   "coverImage": {
     "url": coverImage.asset->url,
-    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id'])
+    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
+    "size": coverImage.size,
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
   },
   date,
   "category": category->{
     "name": coalesce(name[$language], name['id']),
     "slug": slug.current
   },
-  mood,
 
   featured,
   likes,
@@ -55,14 +56,15 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
   "excerpt": coalesce(excerpt[$language], excerpt['id']),
   "coverImage": {
     "url": coverImage.asset->url,
-    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id'])
+    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
+    "size": coverImage.size,
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
   },
   date,
   "category": category->{
     "name": coalesce(name[$language], name['id']),
     "slug": slug.current
   },
-  mood,
 
   "content": coalesce(content[$language], content['id']),
   featured,
@@ -77,14 +79,15 @@ export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 
   "excerpt": coalesce(excerpt[$language], excerpt['id']),
   "coverImage": {
     "url": coverImage.asset->url,
-    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id'])
+    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
+    "size": coverImage.size,
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
   },
   date,
   "category": category->{
     "name": coalesce(name[$language], name['id']),
     "slug": slug.current
   },
-  mood,
 
   featured,
   likes
@@ -101,15 +104,16 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
   "excerpt": coalesce(excerpt[$language], excerpt['id']),
   "coverImage": {
     "url": coverImage.asset->url,
-    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id'])
+    "alt": coalesce(coverImage.alt[$language], coverImage.alt['id']),
+    "size": coverImage.size,
+    "aspectRatio": coverImage.asset->metadata.dimensions.aspectRatio
   },
   date,
   "category": category->{
     "name": coalesce(name[$language], name['id']),
     "slug": slug.current
   },
-  mood,
-
+  
   featured,
   likes,
   layout

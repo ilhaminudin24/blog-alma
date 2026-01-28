@@ -17,10 +17,11 @@ export interface Post {
     coverImage: {
         url: string;
         alt?: string;
+        size?: 'normal' | 'fullscreen' | 'wide' | 'tall' | 'original';
+        aspectRatio?: number;
     };
     date: string;
     category: Category;
-    mood: string;
     content: any; // Portable Text block array
     featured: boolean;
     likes: number;
