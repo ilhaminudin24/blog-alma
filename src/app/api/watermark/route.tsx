@@ -33,8 +33,8 @@ export async function GET(request: NextRequest) {
         const height = metadata.height || 630;
 
         // Fetch Font (Robota) for Satori
-        // Using a reliable CDN for the font file
-        const fontUrl = 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2';
+        // Using a reliable CDN for the font file. Satori requires TTF/WOFF (not WOFF2)
+        const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/roboto-fontface/0.10.0/fonts/roboto/Roboto-Black.ttf';
         const fontResponse = await fetch(fontUrl);
         const fontData = await fontResponse.arrayBuffer();
 
