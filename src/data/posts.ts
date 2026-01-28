@@ -17,7 +17,6 @@ export const posts: Post[] = [
             name: 'Makeup & Skincare',
             slug: 'makeup-and-skincare'
         },
-        mood: 'Happy',
 
         content: [], // Placeholder for Portable Text
         featured: true,
@@ -38,7 +37,7 @@ export const posts: Post[] = [
             name: 'Makeup & Skincare',
             slug: 'makeup-and-skincare'
         },
-        mood: 'Excited',
+
 
         content: [],
         featured: true,
@@ -59,7 +58,7 @@ export const posts: Post[] = [
             name: 'Makeup & Skincare',
             slug: 'makeup-and-skincare'
         },
-        mood: 'Relaxed',
+
 
         content: [],
         featured: false,
@@ -80,7 +79,7 @@ export const posts: Post[] = [
             name: 'Makeup & Skincare',
             slug: 'makeup-and-skincare'
         },
-        mood: 'Relaxed',
+
 
         content: [],
         featured: false,
@@ -103,7 +102,7 @@ export const posts: Post[] = [
             name: 'Daily Life',
             slug: 'daily-life'
         },
-        mood: 'Relaxed',
+
 
         content: [],
         featured: true,
@@ -124,7 +123,7 @@ export const posts: Post[] = [
             name: 'Daily Life',
             slug: 'daily-life'
         },
-        mood: 'Nostalgic',
+
 
         content: [],
         featured: false,
@@ -145,7 +144,7 @@ export const posts: Post[] = [
             name: 'Daily Life',
             slug: 'daily-life'
         },
-        mood: 'Energetic',
+
 
         content: [],
         featured: true,
@@ -166,7 +165,7 @@ export const posts: Post[] = [
             name: 'Daily Life',
             slug: 'daily-life'
         },
-        mood: 'Melancholy',
+
 
         content: [],
         featured: false,
@@ -189,7 +188,7 @@ export const posts: Post[] = [
             name: 'Hobbies',
             slug: 'hobbies'
         },
-        mood: 'Creative',
+
 
         content: [],
         featured: false,
@@ -210,7 +209,7 @@ export const posts: Post[] = [
             name: 'Hobbies',
             slug: 'hobbies'
         },
-        mood: 'Excited',
+
 
         content: [],
         featured: true,
@@ -231,7 +230,6 @@ export const posts: Post[] = [
             name: 'Hobbies',
             slug: 'hobbies'
         },
-        mood: 'Happy',
 
         content: [],
         featured: false,
@@ -254,7 +252,7 @@ export const posts: Post[] = [
             name: 'Lifestyle',
             slug: 'lifestyle'
         },
-        mood: 'Grateful',
+
 
         content: [],
         featured: true,
@@ -275,7 +273,7 @@ export const posts: Post[] = [
             name: 'Lifestyle',
             slug: 'lifestyle'
         },
-        mood: 'Energetic',
+
 
         content: [],
         featured: false,
@@ -296,7 +294,7 @@ export const posts: Post[] = [
             name: 'Lifestyle',
             slug: 'lifestyle'
         },
-        mood: 'Relaxed',
+
 
         content: [],
         featured: false,

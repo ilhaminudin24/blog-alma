@@ -42,8 +42,7 @@ export async function HighlightSection({ language = 'id' }: { language?: string 
                                 <div className="p-6 pt-4 flex flex-col flex-1">
                                     <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
                                         <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-                                        <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                                        <span>{post.mood}</span>
+
                                     </div>
 
                                     <h3 className="font-bold text-lg text-gray-800 mb-2 leading-tight group-hover:text-purple-600 transition-colors">{post.title}</h3>

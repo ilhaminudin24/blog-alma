@@ -6,7 +6,6 @@ export interface Category {
     color?: string;
 }
 
-export type Mood = 'Happy' | 'Melancholy' | 'Energetic' | 'Relaxed' | 'Excited' | 'Nostalgic' | 'Grateful' | 'Creative';
 
 
 export interface Post {

@@ -56,7 +56,6 @@ interface Post {
         name: string;
         slug: string;
     };
-    mood: string;
     music?: {
         title: string;
         artist: string;
@@ -146,8 +145,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
                                     <div className="p-6 flex flex-col flex-1">
                                         <div className="flex items-center gap-2 text-xs text-gray-400 mb-3">
                                             <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-                                            <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                                            <span>{post.mood}</span>
+
                                         </div>
 
                                         <h3 className="text-xl font-bold font-rounded text-gray-800 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">

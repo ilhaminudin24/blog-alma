@@ -68,8 +68,7 @@ export async function RecentPosts({ language = 'id' }: { language?: string }) {
                                     <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                         <div className="flex items-center gap-2 text-xs text-gray-300 mb-2 opacity-80">
                                             <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-                                            <span>•</span>
-                                            <span>{post.mood}</span>
+
                                         </div>
                                         <h3 className="text-xl font-bold font-rounded mb-2 leading-tight group-hover:text-pastel-lilac transition-colors drop-shadow-sm">{post.title}</h3>
                                         <p className="text-sm text-gray-200 line-clamp-2 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 delay-75">{post.excerpt}</p>
