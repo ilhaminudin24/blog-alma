@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
 import satori from 'satori';
+import { join } from 'path';
+import { readFile } from 'fs/promises';
 
-// Switch to Node.js runtime for sharp
+// Switch to Node.js runtime for sharp and fs
 export const runtime = 'nodejs';
 
 // Revalidate font cache every day
@@ -32,11 +34,10 @@ export async function GET(request: NextRequest) {
         const width = metadata.width || 1200;
         const height = metadata.height || 630;
 
-        // Fetch Font (Robota) for Satori
-        // Using a reliable CDN for the font file. Satori requires TTF/WOFF (not WOFF2)
-        const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/roboto-fontface/0.10.0/fonts/roboto/Roboto-Black.ttf';
-        const fontResponse = await fetch(fontUrl);
-        const fontData = await fontResponse.arrayBuffer();
+        // Load Font from filesystem
+        // This is 100% reliable compared to fetching at runtime
+        const fontPath = join(process.cwd(), 'public/fonts/Roboto-Black.ttf');
+        const fontData = await readFile(fontPath);
 
         // Grid calculations
         const patternWidth = 300;
@@ -46,7 +47,6 @@ export async function GET(request: NextRequest) {
         const textToRepeat = '@shealmalia';
 
         // Generate SVG using Satori
-        // Satori converts HTML/JSX + Font -> SVG Paths -> No system fonts needed on Vercel
         const svg = await satori(
             <div
                 style={{
@@ -75,9 +75,6 @@ export async function GET(request: NextRequest) {
                                 fontSize: `${Math.max(24, Math.floor(width / 40))}px`,
                                 fontWeight: 900,
                                 color: 'rgba(255, 255, 255, 0.25)',
-                                // textShadow is not fully supported in satori the same way, 
-                                // but we can simulate or just rely on color/opacity.
-                                // Satori supports some CSS, sticking to basic flex and typography is safest.
                             }}
                         >
                             {textToRepeat}
@@ -99,7 +96,7 @@ export async function GET(request: NextRequest) {
             }
         );
 
-        // Composite the Satori-generated SVG watermark
+        // Composite
         const outputBuffer = await image
             .composite([{
                 input: Buffer.from(svg),
@@ -118,6 +115,6 @@ export async function GET(request: NextRequest) {
 
     } catch (error) {
         console.error('Watermark generation error:', error);
-        return new Response('Internal Server Error', { status: 500 });
+        return new Response(`Internal Server Error: ${(error as Error).message}`, { status: 500 });
     }
 }
