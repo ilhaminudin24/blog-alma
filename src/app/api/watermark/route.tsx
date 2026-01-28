@@ -1,7 +1,8 @@
-import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
+import sharp from 'sharp';
 
-export const runtime = 'edge';
+// Switch to Node.js runtime for sharp
+export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
@@ -11,93 +12,85 @@ export async function GET(request: NextRequest) {
         return new Response('Missing url parameter', { status: 400 });
     }
 
-    // Attempt to extract dimensions from Sanity URL
-    // Format: .../filename-WIDTHxHEIGHT.extension
-    const dimensionMatch = imageUrl.match(/-(\d+)x(\d+)\./);
-    const width = dimensionMatch ? parseInt(dimensionMatch[1], 10) : 1200;
-    const height = dimensionMatch ? parseInt(dimensionMatch[2], 10) : 630;
-
-    // Calculate number of watermarks to ensure coverage
-    // Grid approach: estimated 300px spacing
-    const cols = Math.ceil(width / 300) + 1;
-    const rows = Math.ceil(height / 200) + 1;
-    const watermarks = Array.from({ length: cols * rows });
-
-    return new ImageResponse(
-        (
-            <div
-                style={{
-                    display: 'flex',
-                    width: '100%',
-                    height: '100%',
-                    position: 'relative',
-                    fontFamily: 'sans-serif',
-                }}
-            >
-                {/* Background Image */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src={imageUrl}
-                    alt="Background"
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        zIndex: 0,
-                    }}
-                />
-
-                {/* Watermark Overlay Grid */}
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        zIndex: 10,
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignContent: 'center',
-                        justifyContent: 'center',
-                        overflow: 'hidden',
-                    }}
-                >
-                    {watermarks.map((_, i) => (
-                        <div
-                            key={i}
-                            style={{
-                                width: '300px',
-                                height: '200px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                transform: 'rotate(-30deg)',
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontSize: Math.max(24, Math.floor(width / 40)), // Responsive font size
-                                    fontWeight: 900,
-                                    color: 'rgba(255, 255, 255, 0.25)',
-                                    textShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                    whiteSpace: 'nowrap',
-                                    userSelect: 'none',
-                                }}
-                            >
-                                @shealmalia
-                            </span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        ),
-        {
-            width,
-            height,
+    try {
+        // Fetch the source image
+        const response = await fetch(imageUrl);
+        if (!response.ok) {
+            return new Response('Failed to fetch image', { status: response.status });
         }
-    );
+
+        const arrayBuffer = await response.arrayBuffer();
+        const inputBuffer = Buffer.from(arrayBuffer);
+
+        // Get image metadata
+        const image = sharp(inputBuffer);
+        const metadata = await image.metadata();
+        const width = metadata.width || 1200;
+        const height = metadata.height || 630;
+
+        // Create SVG Watermark Pattern
+        // We'll create a single SVG that covers the whole image
+        // This is much faster than compositing hundreds of separate text layers
+        const fontSize = Math.max(24, Math.floor(width / 40));
+        const opacity = 0.25;
+        const textToRepeat = '@shealmalia';
+
+        // Grid calculations
+        const patternWidth = 300;
+        const patternHeight = 200;
+        const cols = Math.ceil(width / patternWidth) + 1;
+        const rows = Math.ceil(height / patternHeight) + 1;
+
+        let svgContent = '';
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const x = (c * patternWidth) + (patternWidth / 2);
+                const y = (r * patternHeight) + (patternHeight / 2);
+
+                // SVG text element with rotation
+                svgContent += `
+                    <text 
+                        x="${x}" 
+                        y="${y}" 
+                        font-family="sans-serif" 
+                        font-size="${fontSize}" 
+                        font-weight="900" 
+                        fill="rgba(255, 255, 255, ${opacity})" 
+                        text-anchor="middle" 
+                        dominant-baseline="middle" 
+                        transform="rotate(-30, ${x}, ${y})"
+                        style="text-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+                    >${textToRepeat}</text>
+                `;
+            }
+        }
+
+        const svgImage = `
+            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+                ${svgContent}
+            </svg>
+        `;
+
+        // Composite the watermark
+        const outputBuffer = await image
+            .composite([{
+                input: Buffer.from(svgImage),
+                top: 0,
+                left: 0,
+            }])
+            .png() // or .jpeg() depending on preference, PNG preserves quality well
+            .toBuffer();
+
+        return new Response(outputBuffer as unknown as BodyInit, {
+            headers: {
+                'Content-Type': 'image/png',
+                'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+        });
+
+    } catch (error) {
+        console.error('Watermark generation error:', error);
+        return new Response('Internal Server Error', { status: 500 });
+    }
 }
