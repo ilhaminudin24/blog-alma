@@ -1,9 +1,19 @@
-import { Card } from '../ui/card';
+import { Sticker } from '../ui/Sticker';
+import { Badge, BadgeVariant } from '../ui/badge';
 import { Link } from '@/i18n/routing';
 import { Heart, MessageCircle } from 'lucide-react';
 import { client } from '@/sanity/lib/client';
 import { featuredPostsQuery } from '@/sanity/lib/queries';
 import { getTranslations } from 'next-intl/server';
+
+function getBadgeVariant(category: { name?: string | null; slug?: string | null } | null | undefined): BadgeVariant {
+    if (!category?.name) return 'default';
+    if (category.name.includes('Makeup')) return 'makeup';
+    if (category.name.includes('Hobbies')) return 'hobbies';
+    if (category.name.includes('Lifestyle')) return 'lifestyle';
+    if (category.name.includes('Daily')) return 'daily';
+    return 'default';
+}
 
 export async function HighlightSection({ language = 'id' }: { language?: string }) {
     const featuredPosts = await client.fetch(featuredPostsQuery, { language });
@@ -19,41 +29,46 @@ export async function HighlightSection({ language = 'id' }: { language?: string 
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {featuredPosts.map((post: any) => (
-                        <Link href={`/blog/${post.slug}`} key={post._id} className="group h-full">
-                            <Card className="h-full flex flex-col border-[3px] border-pastel-lilac-border bg-white rounded-[2rem] p-0 overflow-hidden hover:shadow-sticker transition-all duration-300 hover:-translate-y-1">
-                                {/* Image Area */}
-                                <div className="bg-gradient-to-br from-pastel-lilac to-white p-6 relative h-48 flex items-center justify-center">
-                                    <div className="flex justify-between items-center absolute top-4 left-4 right-4">
-                                        <span className="text-xs font-bold text-purple-900">{post.category?.name}</span>
+                    {featuredPosts.map((post: any, index: number) => (
+                        <Link href={`/blog/${post.slug}`} key={post._id} className="group h-full block">
+                            <Sticker
+                                rotation={index % 2 === 0 ? -1 : 1}
+                                className="h-full relative overflow-hidden p-0 bg-gray-50 h-[300px]"
+                                borderWidth="border-[3px]"
+                                borderColor="border-white"
+                                shadow="shadow-md hover:shadow-sticker"
+                            >
+                                {/* Background Image with Overlay */}
+                                <div className="absolute inset-0">
+                                    <img src={post.coverImage?.url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={post.coverImage?.alt || post.title} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90" />
+                                </div>
+
+                                <div className="relative z-10 h-full flex flex-col justify-between p-6 text-white">
+                                    <div className="flex justify-between items-start">
+                                        <Badge variant={getBadgeVariant(post.category)} className="bg-white/90 text-gray-800 border-none shadow-sm">{post.category?.name}</Badge>
                                         {post.music && (
-                                            <div className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-purple-800 flex items-center gap-1 shadow-sm border border-white">
+                                            <div className="text-[10px] bg-black/40 backdrop-blur-md px-2 py-1 rounded-full flex items-center gap-1 border border-white/10">
                                                 <span>🎵</span> {post.music.title}
                                             </div>
                                         )}
                                     </div>
 
-                                    {/* Illustration Placeholder - Replacing real image for the 'clean' look */}
-                                    <div className="text-6xl drop-shadow-md filter transition-transform group-hover:scale-110 duration-300">
-                                        {post.category?.name?.includes('Makeup') ? '💄' : post.category?.name?.includes('Daily') ? '☕' : '🌸'}
+                                    <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                        <div className="flex items-center gap-2 text-xs text-gray-300 mb-2 opacity-80">
+                                            <span>📅 {new Date(post.date).toLocaleDateString()}</span>
+                                        </div>
+
+                                        <h3 className="text-xl font-bold font-rounded mb-2 leading-tight group-hover:text-pastel-lilac transition-colors drop-shadow-sm">{post.title}</h3>
+                                        <p className="text-sm text-gray-200 line-clamp-2 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 delay-75">{post.excerpt}</p>
+
+                                        <div className="flex items-center gap-4 text-xs font-bold text-pink-300 mt-4 pt-2 border-t border-white/10">
+                                            <span className="flex items-center gap-1"><Heart size={16} className="fill-pink-500 text-pink-500" /> {post.likes}</span>
+                                            <span className="flex items-center gap-1 text-blue-300"><MessageCircle size={16} /> {t('comment')}</span>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div className="p-6 pt-4 flex flex-col flex-1">
-                                    <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
-                                        <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-
-                                    </div>
-
-                                    <h3 className="font-bold text-lg text-gray-800 mb-2 leading-tight group-hover:text-purple-600 transition-colors">{post.title}</h3>
-                                    <p className="text-sm text-gray-500 line-clamp-3 mb-4 leading-relaxed">{post.excerpt}</p>
-
-                                    <div className="flex items-center gap-4 text-xs font-bold text-pink-500 mt-auto pt-4 border-t border-gray-100">
-                                        <span className="flex items-center gap-1"><Heart size={16} className="fill-pink-500" /> {post.likes}</span>
-                                        <span className="flex items-center gap-1 text-blue-500"><MessageCircle size={16} /> {t('comment')}</span>
-                                    </div>
-                                </div>
-                            </Card>
+                            </Sticker>
                         </Link>
                     ))}
                 </div>

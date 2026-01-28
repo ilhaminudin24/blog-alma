@@ -1,8 +1,12 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
+import satori from 'satori';
 
 // Switch to Node.js runtime for sharp
 export const runtime = 'nodejs';
+
+// Revalidate font cache every day
+export const revalidate = 86400;
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
@@ -28,58 +32,81 @@ export async function GET(request: NextRequest) {
         const width = metadata.width || 1200;
         const height = metadata.height || 630;
 
-        // Create SVG Watermark Pattern
-        // We'll create a single SVG that covers the whole image
-        // This is much faster than compositing hundreds of separate text layers
-        const fontSize = Math.max(24, Math.floor(width / 40));
-        const opacity = 0.25;
-        const textToRepeat = '@shealmalia';
+        // Fetch Font (Robota) for Satori
+        // Using a reliable CDN for the font file
+        const fontUrl = 'https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2';
+        const fontResponse = await fetch(fontUrl);
+        const fontData = await fontResponse.arrayBuffer();
 
         // Grid calculations
         const patternWidth = 300;
         const patternHeight = 200;
         const cols = Math.ceil(width / patternWidth) + 1;
         const rows = Math.ceil(height / patternHeight) + 1;
+        const textToRepeat = '@shealmalia';
 
-        let svgContent = '';
-
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                const x = (c * patternWidth) + (patternWidth / 2);
-                const y = (r * patternHeight) + (patternHeight / 2);
-
-                // SVG text element with rotation
-                svgContent += `
-                    <text 
-                        x="${x}" 
-                        y="${y}" 
-                        font-family="sans-serif" 
-                        font-size="${fontSize}" 
-                        font-weight="900" 
-                        fill="rgba(255, 255, 255, ${opacity})" 
-                        text-anchor="middle" 
-                        dominant-baseline="middle" 
-                        transform="rotate(-30, ${x}, ${y})"
-                        style="text-shadow: 0 2px 4px rgba(0,0,0,0.1);"
-                    >${textToRepeat}</text>
-                `;
+        // Generate SVG using Satori
+        // Satori converts HTML/JSX + Font -> SVG Paths -> No system fonts needed on Vercel
+        const svg = await satori(
+            <div
+                style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                }}
+            >
+                {Array.from({ length: cols * rows }).map((_, i) => (
+                    <div
+                        key={i}
+                        style={{
+                            width: `${patternWidth}px`,
+                            height: `${patternHeight}px`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transform: 'rotate(-30deg)',
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontSize: `${Math.max(24, Math.floor(width / 40))}px`,
+                                fontWeight: 900,
+                                color: 'rgba(255, 255, 255, 0.25)',
+                                // textShadow is not fully supported in satori the same way, 
+                                // but we can simulate or just rely on color/opacity.
+                                // Satori supports some CSS, sticking to basic flex and typography is safest.
+                            }}
+                        >
+                            {textToRepeat}
+                        </span>
+                    </div>
+                ))}
+            </div>,
+            {
+                width,
+                height,
+                fonts: [
+                    {
+                        name: 'Roboto',
+                        data: fontData,
+                        weight: 900,
+                        style: 'normal',
+                    },
+                ],
             }
-        }
+        );
 
-        const svgImage = `
-            <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-                ${svgContent}
-            </svg>
-        `;
-
-        // Composite the watermark
+        // Composite the Satori-generated SVG watermark
         const outputBuffer = await image
             .composite([{
-                input: Buffer.from(svgImage),
+                input: Buffer.from(svg),
                 top: 0,
                 left: 0,
             }])
-            .png() // or .jpeg() depending on preference, PNG preserves quality well
+            .png()
             .toBuffer();
 
         return new Response(outputBuffer as unknown as BodyInit, {
