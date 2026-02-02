@@ -27,12 +27,14 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: { params: Promise<{ locale: string; slug: string }> }) {
     const { slug, locale } = await params;
     const post: any = await client.fetch(postQuery, { slug, language: locale });
-    const comments = await client.fetch(postCommentsQuery, { postId: post?._id });
     const t = await getTranslations({ locale, namespace: 'blog' });
 
     if (!post) {
         notFound();
     }
+
+    // Fetch comments AFTER confirming post exists to avoid undefined postId
+    const comments = await client.fetch(postCommentsQuery, { postId: post._id });
 
     return (
         <>
