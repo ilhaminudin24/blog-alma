@@ -1,0 +1,42 @@
+/* Sanity Studio Custom Styles */
+
+/* Wider form container for better editing experience */
+[data-testid="document-panel-scroller"] {
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+/* Wider form pane */
+[data-testid="form-view-root"] {
+    max-width: 100% !important;
+}
+
+/* Make the document pane use more horizontal space */
+[data-ui="DocumentPane"] > div > div {
+    max-width: 100% !important;
+}
+
+/* Wider input fields */
+[data-testid="document-panel"] {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* Card styling for localized inputs */
+.localized-input-card {
+    background-color: var(--card-bg-color);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Translate button styling */
+.translate-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Block editor container */
+[data-testid="pt-editor"] {
+    min-height: 200px;
+}

@@ -12,6 +12,13 @@ import { aboutType } from './aboutType'
 import { siteSettingsType } from './siteSettingsType'
 import { commentType } from './commentType'
 
+// New flexible content types
+import { flexibleImageType } from './flexibleImageType'
+import { galleryType } from './galleryType'
+import { calloutType } from './calloutType'
+import { videoEmbedType } from './videoEmbedType'
+import { dividerType } from './dividerType'
+
 export const schema: { types: SchemaTypeDefinition[] } = {
     types: [
         postType,
@@ -26,5 +33,12 @@ export const schema: { types: SchemaTypeDefinition[] } = {
         aboutType,
         siteSettingsType,
         commentType,
+
+        // New flexible content types
+        flexibleImageType,
+        galleryType,
+        calloutType,
+        videoEmbedType,
+        dividerType,
     ],
 }
