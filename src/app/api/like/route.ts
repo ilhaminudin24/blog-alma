@@ -23,6 +23,12 @@ if (process.env.SANITY_API_TOKEN) {
 
 export async function PATCH(req: NextRequest) {
     try {
+        // Validate token exists
+        if (!process.env.SANITY_API_TOKEN) {
+            console.error('CRITICAL: SANITY_API_TOKEN is not set');
+            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+        }
+
         const body = await req.json();
         const { postId, increment } = body;
 
@@ -33,6 +39,8 @@ export async function PATCH(req: NextRequest) {
         // Determine increment value (default to +1)
         const incValue = increment === false ? -1 : 1;
 
+        console.log('Attempting to patch document:', postId, 'with increment:', incValue);
+
         // Patch the document
         const updatedPost = await client
             .patch(postId)
@@ -40,12 +48,25 @@ export async function PATCH(req: NextRequest) {
             .inc({ likes: incValue })
             .commit();
 
+        console.log('Successfully updated likes to:', updatedPost.likes);
+
         return NextResponse.json({
             likes: updatedPost.likes,
             message: incValue > 0 ? 'Liked successfully' : 'Unliked successfully'
         });
     } catch (error) {
-        console.error('Error updating likes:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        // Log detailed error for debugging
+        console.error('Error updating likes:', {
+            message: error instanceof Error ? error.message : String(error),
+            stack: error instanceof Error ? error.stack : undefined,
+            response: (error as any)?.response?.body || (error as any)?.responseBody
+        });
+
+        // Return more specific error for debugging
+        return NextResponse.json({
+            error: 'Failed to update likes',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        }, { status: 500 });
     }
 }
+
