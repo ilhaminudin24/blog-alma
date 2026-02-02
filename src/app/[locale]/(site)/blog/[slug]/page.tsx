@@ -41,13 +41,14 @@ export default async function BlogPost({ params }: { params: Promise<{ locale: s
             <div className="container mx-auto px-4 py-8 lg:py-12 max-w-5xl">
                 <PostHeader post={post} />
 
-                <div className="bg-white60 backdrop-blur-sm rounded-[3rem] p-6 md:p-12 shadow-sm border border-white/50 relative overflow-hidden">
+                {/* Article content container - uses pseudo clip for rounded corners without clipping images */}
+                <div className="bg-white/60 backdrop-blur-sm rounded-[3rem] shadow-sm border border-white/50 relative">
                     {/* Decorative background element */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-pastel-lilac/10 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-pastel-mint/10 rounded-full blur-3xl -z-10 -translate-x-1/2 translate-y-1/2"></div>
 
                     {/* Post Content with Portable Text */}
-                    <article className="prose prose-lg prose-slate max-w-none font-sans prose-headings:font-handwritten prose-headings:font-normal prose-headings:text-gray-800 prose-p:text-gray-600 prose-p:leading-relaxed prose-img:rounded-3xl prose-img:shadow-md">
+                    <article className="prose prose-lg prose-slate max-w-none font-sans prose-headings:font-handwritten prose-headings:font-normal prose-headings:text-gray-800 prose-p:text-gray-600 prose-p:leading-relaxed p-6 md:p-12">
                         {Array.isArray(post.content) ? (
                             <PortableText value={post.content} components={PortableTextComponents} />
                         ) : (
@@ -56,16 +57,18 @@ export default async function BlogPost({ params }: { params: Promise<{ locale: s
                         )}
                     </article>
 
-                    <div className="my-12 flex justify-center">
-                        <div className="w-16 h-1 bg-gray-100 rounded-full"></div>
+                    <div className="px-6 md:px-12">
+                        <div className="my-12 flex justify-center">
+                            <div className="w-16 h-1 bg-gray-100 rounded-full"></div>
+                        </div>
+
+                        <p className="font-sans text-gray-600 mb-12 leading-relaxed italic text-center text-sm">
+                            {t('thanksMessage')} 💜
+                        </p>
+
+                        <PostEngagement initialLikes={post.likes} postId={post._id} />
+                        <PostComments postId={post._id} initialComments={comments} />
                     </div>
-
-                    <p className="font-sans text-gray-600 mb-12 leading-relaxed italic text-center text-sm">
-                        {t('thanksMessage')} 💜
-                    </p>
-
-                    <PostEngagement initialLikes={post.likes} postId={post._id} />
-                    <PostComments postId={post._id} initialComments={comments} />
                 </div>
             </div>
 

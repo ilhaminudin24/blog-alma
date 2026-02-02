@@ -52,4 +52,23 @@
   h6 {
     @apply font-rounded;
   }
+
+  /* Override Tailwind Typography default image styles to remove frame effect */
+  .prose img,
+  article img,
+  figure img {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: none !important;
+  }
+
+  /* Remove any container styling on image wrappers */
+  .prose figure,
+  article figure {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
 }

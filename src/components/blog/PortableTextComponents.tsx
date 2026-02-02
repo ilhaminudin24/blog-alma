@@ -22,12 +22,14 @@ export const PortableTextComponents: PortableTextComponentsType = {
         image: ({ value }: any) => {
             if (!value?.asset?._ref) return null
             return (
-                <div className="relative w-full h-96 my-8 rounded-3xl overflow-hidden shadow-md">
+                <div className="my-8 -mx-6 md:-mx-12">
                     <Image
                         src={urlFor(value).url()}
                         alt={value.alt || 'Post Image'}
-                        fill
-                        className="object-cover"
+                        width={1200}
+                        height={800}
+                        className="w-full h-auto !rounded-none"
+                        style={{ borderRadius: 0, boxShadow: 'none' }}
                     />
                 </div>
             )
@@ -56,7 +58,7 @@ export const PortableTextComponents: PortableTextComponentsType = {
 
             return (
                 <figure className={`my-8 ${positionClasses[position]} ${!isFullWidth ? sizeClasses[size] : ''}`}>
-                    <div className="relative aspect-auto rounded-2xl overflow-hidden shadow-md">
+                    <div className="relative aspect-auto">
                         <Image
                             src={urlFor(value.image).url()}
                             alt={value.alt || 'Image'}
@@ -94,7 +96,7 @@ export const PortableTextComponents: PortableTextComponentsType = {
                             key={img._key || index}
                             className={layout === 'carousel' ? 'flex-shrink-0 w-80 snap-center' : layout === 'masonry' ? 'break-inside-avoid mb-4' : ''}
                         >
-                            <div className="relative rounded-2xl overflow-hidden shadow-md">
+                            <div className="relative">
                                 <Image
                                     src={urlFor(img).url()}
                                     alt={img.alt || `Gallery image ${index + 1}`}
