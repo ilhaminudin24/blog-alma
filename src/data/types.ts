@@ -25,6 +25,7 @@ export interface Post {
     content: any; // Portable Text block array
     featured: boolean;
     likes: number;
+    views?: number;
     layout?: 'normal' | 'wide' | 'tall';
 }
 

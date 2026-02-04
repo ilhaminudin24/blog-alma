@@ -47,6 +47,7 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(date desc) {
 
   featured,
   likes,
+  views,
   layout
 }`);
 
@@ -71,6 +72,7 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
   "content": coalesce(content[$language], content['id']),
   featured,
   likes,
+  views,
   layout
 }`);
 
@@ -93,7 +95,8 @@ export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 
   },
 
   featured,
-  likes
+  likes,
+  views
 }`);
 
 export const postPathsQuery = defineQuery(`*[_type == "post" && defined(slug.current)][]{
@@ -120,6 +123,7 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
   
   featured,
   likes,
+  views,
   layout
 }`);
 

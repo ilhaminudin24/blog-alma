@@ -1,7 +1,7 @@
 import { Sticker } from '../ui/Sticker';
 import { Badge, BadgeVariant } from '../ui/badge';
 import { Link } from '@/i18n/routing';
-import { Heart, MessageCircle } from 'lucide-react';
+import { Heart, MessageCircle, Eye } from 'lucide-react';
 import { client } from '@/sanity/lib/client';
 import { featuredPostsQuery } from '@/sanity/lib/queries';
 import { getTranslations } from 'next-intl/server';
@@ -64,6 +64,7 @@ export async function HighlightSection({ language = 'id' }: { language?: string 
 
                                         <div className="flex items-center gap-4 text-xs font-bold text-pink-300 mt-4 pt-2 border-t border-white/10">
                                             <span className="flex items-center gap-1"><Heart size={16} className="fill-pink-500 text-pink-500" /> {post.likes}</span>
+                                            <span className="flex items-center gap-1 text-gray-300"><Eye size={16} /> {post.views || 0}</span>
                                             <span className="flex items-center gap-1 text-blue-300"><MessageCircle size={16} /> {t('comment')}</span>
                                         </div>
                                     </div>

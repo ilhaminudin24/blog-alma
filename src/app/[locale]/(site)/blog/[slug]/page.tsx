@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { PostHeader } from '@/components/blog/PostHeader';
 import { PostContent } from '@/components/blog/PostContent';
 import { PostEngagement } from '@/components/blog/PostEngagement';
+import { ViewsTracker } from '@/components/blog/ViewsTracker';
 import { PostComments } from '@/components/blog/PostComments';
 import { RecentPosts } from '@/components/home/RecentPosts';
 import { client } from '@/sanity/lib/client';
@@ -66,6 +67,7 @@ export default async function BlogPost({ params }: { params: Promise<{ locale: s
                             {t('thanksMessage')} 💜
                         </p>
 
+                        <ViewsTracker initialViews={post.views || 0} postId={post._id} showLabel={true} className="text-gray-500 text-sm justify-center mb-6" />
                         <PostEngagement initialLikes={post.likes} postId={post._id} />
                         <PostComments postId={post._id} initialComments={comments} />
                     </div>

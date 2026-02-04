@@ -132,6 +132,15 @@ export const postType = defineType({
             initialValue: 0,
         }),
         defineField({
+            name: 'views',
+            title: 'Views',
+            type: 'number',
+            description: 'Number of page views (Read only)',
+            group: 'settings',
+            readOnly: true,
+            initialValue: 0,
+        }),
+        defineField({
             name: 'layout',
             title: 'Layout',
             type: 'string',

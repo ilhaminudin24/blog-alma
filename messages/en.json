@@ -26,7 +26,8 @@
     },
     "highlight": {
         "title": "Most Loved",
-        "comment": "Comment"
+        "comment": "Comment",
+        "views": "views"
     },
     "footer": {
         "tagline": "My personal space to share stories, experiences, and random thoughts. Welcome to my little corner of the internet! 💜",
