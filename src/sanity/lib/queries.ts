@@ -48,6 +48,7 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(date desc) {
   featured,
   likes,
   views,
+  "commentsCount": count(*[_type == "comment" && post._ref == ^._id && approved == true]),
   layout
 }`);
 
@@ -96,7 +97,8 @@ export const featuredPostsQuery = defineQuery(`*[_type == "post" && (likes >= 1 
 
   featured,
   likes,
-  views
+  views,
+  "commentsCount": count(*[_type == "comment" && post._ref == ^._id && approved == true])
 }`);
 
 export const postPathsQuery = defineQuery(`*[_type == "post" && defined(slug.current)][]{

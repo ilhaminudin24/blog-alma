@@ -1,6 +1,7 @@
 import { Sticker } from '../ui/Sticker';
 import { Badge, BadgeVariant } from '../ui/badge';
 import { Link } from '@/i18n/routing';
+import { Heart, MessageCircle, Eye } from 'lucide-react';
 import { client } from '@/sanity/lib/client';
 import { postsQuery } from '@/sanity/lib/queries';
 import { getTranslations } from 'next-intl/server';
@@ -72,6 +73,12 @@ export async function RecentPosts({ language = 'id' }: { language?: string }) {
                                         </div>
                                         <h3 className="text-xl font-bold font-rounded mb-2 leading-tight group-hover:text-pastel-lilac transition-colors drop-shadow-sm">{post.title}</h3>
                                         <p className="text-sm text-gray-200 line-clamp-2 opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 delay-75">{post.excerpt}</p>
+
+                                        <div className="flex items-center gap-4 text-xs font-bold text-pink-300 mt-4 pt-2 border-t border-white/10">
+                                            <span className="flex items-center gap-1"><Heart size={16} className="fill-pink-500 text-pink-500" /> {post.likes}</span>
+                                            <span className="flex items-center gap-1 text-gray-300"><Eye size={16} /> {post.views || 0}</span>
+                                            <span className="flex items-center gap-1 text-blue-300"><MessageCircle size={16} /> {post.commentsCount || 0}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </Sticker>
