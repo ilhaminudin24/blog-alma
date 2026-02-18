@@ -260,6 +260,15 @@ export const PortableTextComponents: PortableTextComponentsType = {
         normal: ({ children }) => (
             <p className="mb-4 leading-relaxed font-sans text-gray-600">{children}</p>
         ),
+        textLeft: ({ children }) => (
+            <p className="mb-4 leading-relaxed font-sans text-gray-600 text-left">{children}</p>
+        ),
+        textCenter: ({ children }) => (
+            <p className="mb-4 leading-relaxed font-sans text-gray-600 text-center">{children}</p>
+        ),
+        textRight: ({ children }) => (
+            <p className="mb-4 leading-relaxed font-sans text-gray-600 text-right">{children}</p>
+        ),
     },
 
     marks: {
