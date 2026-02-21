@@ -1,7 +1,6 @@
 import { BookOpen, Coffee, Palette, Sparkles, Brain, MessageCircleQuestion, Heart, Star, Music, Camera, Sun } from 'lucide-react';
 import { Sticker } from '../ui/Sticker';
 import { Link } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
 import { client } from '@/sanity/lib/client';
 import { categoriesQuery } from '@/sanity/lib/queries';
 
@@ -85,20 +84,13 @@ interface Category {
 }
 
 export async function HeroSection({ language = 'id' }: { language?: string }) {
-    const tHero = await getTranslations('hero');
     const categories: Category[] = await client.fetch(categoriesQuery, { language });
 
     return (
         <section id="categories" className="py-8">
-            <div className="container mx-auto px-4">
-                {/* Header Text */}
-                <div className="flex items-center gap-2 mb-6">
-                    <span className="text-2xl text-orange-300">✨</span>
-                    <h2 className="text-2xl font-bold font-rounded text-purple-900">{tHero('explore')}</h2>
-                </div>
-
-                {/* Grid Navigation */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="container mx-auto px-4 max-w-xl">
+                {/* Single-column stacked category menu */}
+                <div className="flex flex-col gap-4">
                     {categories.map((cat, index) => {
                         const colorClasses = colorMap[cat.color] || colorMap['purple'];
                         const icon = iconMap[cat.icon] || <Sparkles className="w-8 h-8" />;
@@ -108,11 +100,11 @@ export async function HeroSection({ language = 'id' }: { language?: string }) {
                             <Link
                                 key={cat._id}
                                 href={href}
-                                className="group block h-40"
+                                className="group block"
                             >
                                 <Sticker
-                                    rotation={index % 2 === 0 ? 1 : -1}
-                                    className={`h-full flex flex-col items-center justify-center gap-4 ${colorClasses.border} ${colorClasses.bg} ${colorClasses.hover} rounded-[2rem] shadow-none hover:shadow-sticker`}
+                                    rotation={0}
+                                    className={`w-full flex flex-col items-center justify-center gap-3 py-6 ${colorClasses.border} ${colorClasses.bg} ${colorClasses.hover} rounded-[2rem] shadow-none hover:shadow-sticker transition-all duration-300`}
                                     borderColor="border-transparent"
                                     borderWidth="border-[3px]"
                                 >
