@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react'
 import { Stack, Flex, Text, Card } from '@sanity/ui'
-import { set, unset } from 'sanity'
+import { set } from 'sanity'
 import type { ObjectInputProps, ObjectMember } from 'sanity'
 import { TranslateButton } from './TranslateButton'
 import { translateBlocksToEnglish } from '../lib/translateService'
@@ -32,7 +32,7 @@ export function LocalizedBlockInput(props: ObjectInputProps) {
                 {/* Indonesian Field */}
                 <Stack space={3}>
                     <Text size={2} weight="semibold">
-                        Indonesian
+                        🇮🇩 Indonesian
                     </Text>
                     {idMember && (
                         <div style={{ width: '100%' }}>
@@ -48,7 +48,7 @@ export function LocalizedBlockInput(props: ObjectInputProps) {
                 <Stack space={3}>
                     <Flex align="center" gap={2}>
                         <Text size={2} weight="semibold">
-                            English
+                            🇬🇧 English
                         </Text>
                         <TranslateButton
                             onTranslate={handleTranslate}

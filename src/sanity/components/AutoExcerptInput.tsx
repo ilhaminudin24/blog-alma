@@ -1,16 +1,62 @@
 'use client'
 
-import React, { useCallback, useRef } from 'react'
-import { Stack, Flex, Text, TextArea, Card } from '@sanity/ui'
-import { set, unset } from 'sanity'
+import React, { useCallback, useEffect, useRef } from 'react'
+import { Stack, Flex, Text, TextArea, Card, Button as SanityButton } from '@sanity/ui'
+import { set, unset, useFormValue } from 'sanity'
 import type { ObjectInputProps } from 'sanity'
 import { TranslateButton } from './TranslateButton'
 import { translateToEnglish } from '../lib/translateService'
+import { extractTextFromBlocks } from '../lib/extractText'
+import { SparklesIcon } from '@sanity/icons'
 
-export function LocalizedTextInput(props: ObjectInputProps) {
+/**
+ * Auto-Excerpt Input for localizedText fields.
+ * Reads content.id blocks and auto-generates excerpt if empty.
+ * Also supports auto-translate on blur like the standard LocalizedTextInput.
+ */
+export function AutoExcerptInput(props: ObjectInputProps) {
     const { value, onChange } = props
     const currentValue = value as { id?: string; en?: string } | undefined
     const isTranslatingRef = useRef(false)
+    const hasAutoFilledRef = useRef(false)
+
+    // Read the content field from the parent document
+    const contentValue = useFormValue(['content']) as { id?: any[]; en?: any[] } | undefined
+
+    // Auto-generate excerpt from content.id blocks
+    useEffect(() => {
+        const idBlocks = contentValue?.id
+        if (!idBlocks || idBlocks.length === 0) return
+
+        // Only auto-fill if excerpt.id is currently empty
+        if (!currentValue?.id && !hasAutoFilledRef.current) {
+            const extractedText = extractTextFromBlocks(idBlocks, 150)
+            if (extractedText.trim()) {
+                hasAutoFilledRef.current = true
+                onChange(set(extractedText, ['id']))
+            }
+        }
+    }, [contentValue?.id, currentValue?.id, onChange])
+
+    // Reset auto-fill flag when excerpt is manually cleared
+    useEffect(() => {
+        if (!currentValue?.id) {
+            hasAutoFilledRef.current = false
+        }
+    }, [currentValue?.id])
+
+    // Manual regenerate excerpt from content
+    const handleRegenerate = useCallback(() => {
+        const idBlocks = contentValue?.id
+        if (!idBlocks || idBlocks.length === 0) return
+
+        const extractedText = extractTextFromBlocks(idBlocks, 150)
+        if (extractedText.trim()) {
+            onChange(set(extractedText, ['id']))
+            // Also clear English so it gets re-translated on blur
+            onChange(unset(['en']))
+        }
+    }, [contentValue?.id, onChange])
 
     const handleIdChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newValue = event.target.value
@@ -30,12 +76,11 @@ export function LocalizedTextInput(props: ObjectInputProps) {
         }
     }, [onChange])
 
-    // Auto-translate on blur: when user finishes typing Indonesian, auto-fill English
+    // Auto-translate on blur
     const handleIdBlur = useCallback(async () => {
         const indonesianText = currentValue?.id || ''
         const englishText = currentValue?.en || ''
 
-        // Only auto-translate if Indonesian has text and English is empty
         if (indonesianText.trim() && !englishText.trim() && !isTranslatingRef.current) {
             isTranslatingRef.current = true
             try {
@@ -44,7 +89,7 @@ export function LocalizedTextInput(props: ObjectInputProps) {
                     onChange(set(translated, ['en']))
                 }
             } catch (error) {
-                console.error('Auto-translate failed:', error)
+                console.error('Auto-translate excerpt failed:', error)
             } finally {
                 isTranslatingRef.current = false
             }
@@ -67,24 +112,36 @@ export function LocalizedTextInput(props: ObjectInputProps) {
             <Stack space={4}>
                 {/* Indonesian Field */}
                 <Stack space={2}>
-                    <Text size={1} weight="semibold">
-                        🇮🇩 Indonesian
-                    </Text>
+                    <Flex align="center" gap={2}>
+                        <Text size={1} weight="semibold">
+                            🇮🇩 Ringkasan
+                        </Text>
+                        <SanityButton
+                            icon={SparklesIcon}
+                            text="Generate dari konten"
+                            mode="ghost"
+                            tone="primary"
+                            fontSize={0}
+                            padding={2}
+                            onClick={handleRegenerate}
+                            disabled={!contentValue?.id || contentValue.id.length === 0}
+                        />
+                    </Flex>
                     <TextArea
                         value={currentValue?.id || ''}
                         onChange={handleIdChange}
                         onBlur={handleIdBlur}
-                        placeholder="Masukkan teks dalam Bahasa Indonesia"
-                        rows={4}
+                        placeholder="✨ Otomatis diisi dari konten, atau tulis manual"
+                        rows={3}
                         style={{ resize: 'vertical' }}
                     />
                 </Stack>
 
-                {/* English Field with Translate Button */}
+                {/* English Field */}
                 <Stack space={2}>
                     <Flex align="center" gap={2}>
                         <Text size={1} weight="semibold">
-                            🇬🇧 English
+                            🇬🇧 Summary
                         </Text>
                         <TranslateButton
                             onTranslate={handleTranslate}
@@ -95,8 +152,8 @@ export function LocalizedTextInput(props: ObjectInputProps) {
                     <TextArea
                         value={currentValue?.en || ''}
                         onChange={handleEnChange}
-                        placeholder="Auto-filled / English translation"
-                        rows={4}
+                        placeholder="Auto-translated / English summary"
+                        rows={3}
                         style={{ resize: 'vertical' }}
                     />
                 </Stack>

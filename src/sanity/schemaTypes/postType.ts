@@ -1,5 +1,6 @@
 import { DocumentTextIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
+import { AutoExcerptInput } from '../components/AutoExcerptInput'
 
 export const postType = defineType({
     name: 'post',
@@ -83,6 +84,9 @@ export const postType = defineType({
             type: 'localizedText',
             description: '✨ Otomatis diisi dari konten. Bisa diedit manual jika perlu.',
             group: 'content',
+            components: {
+                input: AutoExcerptInput,
+            },
         }),
         defineField({
             name: 'category',
