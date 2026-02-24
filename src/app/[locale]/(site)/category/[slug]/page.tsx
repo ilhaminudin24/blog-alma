@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/routing';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { BookOpen, Coffee, Sparkles, Palette, Brain, ArrowLeft, Heart, Star, Music, Camera, MessageCircleQuestion } from 'lucide-react';
+import { BookOpen, Coffee, Sparkles, Palette, Brain, ArrowLeft, Heart, Star, Music, Camera, MessageCircleQuestion, Eye, MessageCircle } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { client } from '@/sanity/lib/client';
 import { categoryQuery, categoryPathsQuery, postsByCategoryQuery } from '@/sanity/lib/queries';
@@ -61,6 +61,8 @@ interface Post {
         artist: string;
     };
     likes: number;
+    views: number;
+    commentsCount: number;
 }
 
 export async function generateStaticParams() {
@@ -145,7 +147,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
                                     <div className="p-6 flex flex-col flex-1">
                                         <div className="flex items-center gap-2 text-xs text-gray-400 mb-3">
                                             <span>📅 {new Date(post.date).toLocaleDateString()}</span>
-
                                         </div>
 
                                         <h3 className="text-xl font-bold font-rounded text-gray-800 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
@@ -156,8 +157,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
                                             {post.excerpt}
                                         </p>
 
+                                        <div className="flex items-center gap-4 text-xs text-gray-400 mt-auto pt-3 border-t border-gray-100">
+                                            <span className="flex items-center gap-1"><Heart size={14} className="fill-pink-400 text-pink-400" /> {post.likes || 0}</span>
+                                            <span className="flex items-center gap-1"><Eye size={14} /> {post.views || 0}</span>
+                                            <span className="flex items-center gap-1 text-blue-400"><MessageCircle size={14} /> {post.commentsCount || 0}</span>
+                                        </div>
+
                                         {post.music && (
-                                            <div className="mt-auto pt-4 border-t border-gray-50 flex items-center gap-2 text-xs text-purple-500 font-bold">
+                                            <div className="pt-2 flex items-center gap-2 text-xs text-purple-500 font-bold">
                                                 <span>🎵</span> {post.music.title}
                                             </div>
                                         )}

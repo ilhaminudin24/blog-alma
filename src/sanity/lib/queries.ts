@@ -126,6 +126,7 @@ export const postsByCategoryQuery = defineQuery(`*[_type == "post" && category->
   featured,
   likes,
   views,
+  "commentsCount": count(*[_type == "comment" && post._ref == ^._id && approved == true]),
   layout
 }`);
 

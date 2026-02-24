@@ -1,5 +1,5 @@
 import { DocumentTextIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export const postType = defineType({
     name: 'post',
@@ -9,55 +9,29 @@ export const postType = defineType({
     groups: [
         {
             name: 'content',
-            title: 'Content',
+            title: '✍️ Content',
             default: true,
         },
         {
             name: 'settings',
-            title: 'Settings',
+            title: '⚙️ Settings',
         },
     ],
     fields: [
+        // ========== CONTENT TAB (user focuses here) ==========
         defineField({
             name: 'title',
-            title: 'Title',
+            title: 'Judul',
             type: 'localizedString',
-            description: 'The main title of the post',
+            description: 'Tulis judul dalam Bahasa Indonesia — English otomatis diterjemahkan',
             group: 'content',
             validation: (rule) => rule.required(),
-        }),
-        defineField({
-            name: 'slug',
-            title: 'Slug',
-            type: 'slug',
-            description: 'The URL-friendly version of the title',
-            group: 'settings',
-            options: {
-                source: 'title.id', // Update source for slug generation
-                maxLength: 96,
-            },
-            validation: (rule) => rule.required(),
-        }),
-        defineField({
-            name: 'excerpt',
-            title: 'Excerpt',
-            type: 'localizedText',
-            description: 'A short summary of the post for lists and SEO',
-            group: 'content',
-            validation: (rule) => rule.required(),
-        }),
-        defineField({
-            name: 'content',
-            title: 'Content',
-            type: 'localizedBlock',
-            description: 'The main body of the post',
-            group: 'content',
         }),
         defineField({
             name: 'coverImage',
             title: 'Cover Image',
             type: 'image',
-            description: 'The main image displayed on the blog list and top of the post',
+            description: 'Upload gambar cover untuk post ini',
             group: 'content',
             options: {
                 hotspot: true,
@@ -67,13 +41,13 @@ export const postType = defineType({
                     name: 'alt',
                     type: 'localizedString',
                     title: 'Alternative text',
-                    description: 'Important for SEO and accessibility',
+                    description: 'Deskripsi gambar untuk SEO dan aksesibilitas',
                 },
                 {
                     name: 'size',
                     title: 'Image Display Size',
                     type: 'string',
-                    description: 'Control how the image appears on the post page',
+                    description: 'Ukuran tampilan gambar di halaman post',
                     options: {
                         list: [
                             { title: 'Normal (16:9)', value: 'normal' },
@@ -97,52 +71,69 @@ export const postType = defineType({
             validation: (rule) => rule.required(),
         }),
         defineField({
-            name: 'date',
-            title: 'Date',
-            type: 'datetime',
-            description: 'The publication date',
-            group: 'settings',
-            initialValue: () => new Date().toISOString(),
-            validation: (rule) => rule.required(),
+            name: 'content',
+            title: 'Konten',
+            type: 'localizedBlock',
+            description: 'Tulis konten dalam Bahasa Indonesia — gunakan tombol translate untuk English',
+            group: 'content',
+        }),
+        defineField({
+            name: 'excerpt',
+            title: 'Ringkasan',
+            type: 'localizedText',
+            description: '✨ Otomatis diisi dari konten. Bisa diedit manual jika perlu.',
+            group: 'content',
         }),
         defineField({
             name: 'category',
-            title: 'Category',
+            title: 'Kategori',
             type: 'reference',
             to: [{ type: 'category' }],
-            description: 'The category this post belongs to',
+            description: 'Pilih kategori (opsional — akan diisi otomatis jika kosong)',
+            group: 'content',
+        }),
+
+        // ========== SETTINGS TAB (mostly auto-filled) ==========
+        defineField({
+            name: 'slug',
+            title: 'Slug',
+            type: 'slug',
+            description: 'Auto-generate dari judul. Klik Generate jika belum terisi.',
             group: 'settings',
+            options: {
+                source: 'title.id',
+                maxLength: 96,
+                slugify: (input: string) =>
+                    input
+                        .toLowerCase()
+                        .replace(/\s+/g, '-')
+                        .replace(/[^\w-]+/g, '')
+                        .slice(0, 96),
+            },
+            validation: (rule) => rule.required(),
+        }),
+        defineField({
+            name: 'date',
+            title: 'Tanggal Publikasi',
+            type: 'datetime',
+            description: 'Otomatis diisi saat membuat post baru',
+            group: 'settings',
+            initialValue: () => new Date().toISOString(),
             validation: (rule) => rule.required(),
         }),
         defineField({
             name: 'featured',
             title: 'Featured',
             type: 'boolean',
-            description: 'Highlight this post in the featured section',
+            description: 'Tampilkan di bagian highlight',
             group: 'settings',
             initialValue: false,
-        }),
-        defineField({
-            name: 'likes',
-            title: 'Likes',
-            type: 'number',
-            description: 'Number of likes',
-            group: 'settings',
-            initialValue: 0,
-        }),
-        defineField({
-            name: 'views',
-            title: 'Views',
-            type: 'number',
-            description: 'Number of page views',
-            group: 'settings',
-            initialValue: 0,
         }),
         defineField({
             name: 'layout',
             title: 'Layout',
             type: 'string',
-            description: 'The layout style for this post',
+            description: 'Gaya layout untuk post ini',
             group: 'settings',
             options: {
                 list: [
@@ -153,10 +144,36 @@ export const postType = defineType({
             },
             initialValue: 'normal',
         }),
+        defineField({
+            name: 'likes',
+            title: 'Likes',
+            type: 'number',
+            description: 'Jumlah likes (dikelola otomatis)',
+            group: 'settings',
+            initialValue: 0,
+            readOnly: true,
+        }),
+        defineField({
+            name: 'views',
+            title: 'Views',
+            type: 'number',
+            description: 'Jumlah views (dikelola otomatis)',
+            group: 'settings',
+            initialValue: 0,
+            readOnly: true,
+        }),
     ],
+    // Default values for new posts
+    initialValue: async () => ({
+        date: new Date().toISOString(),
+        featured: false,
+        layout: 'normal',
+        likes: 0,
+        views: 0,
+    }),
     preview: {
         select: {
-            title: 'title.id', // Update preview selection
+            title: 'title.id',
             author: 'author.name',
             media: 'coverImage',
         },
